@@ -1,0 +1,35 @@
+{
+ "run": "upernet_convnext_t_v2",
+ "source": "GridNet/ckpt/upernet_convnext_t_v2/eval2d.json on Drive (written 2026-10-22; the confusion matrix of that file is left out here)",
+ "ckpt": "best.pth",
+ "it": 12000,
+ "mIoU": 64.57314924482674,
+ "OA": 80.80243163934239,
+ "val_crops": 240,
+ "val_zones": [
+  "t5b5",
+  "t1z8",
+  "t4z1"
+ ],
+ "per_class": {
+  "pylon": 83.80363324321566,
+  "conductor": 57.616534471142046,
+  "structural": 50.866776772065,
+  "insulator": 70.26070205796007,
+  "high_veg": 74.73899278622919,
+  "low_veg": 19.815263635414716,
+  "herb": 78.62837871316106,
+  "rock_soil": 55.230022215122354,
+  "road": 67.87484172450927,
+  "water": 78.60022670642024,
+  "building": 72.8692693678546
+ },
+ "config": {
+  "val_zones": "t5b5,t1z8,t4z1",
+  "val_images": 40,
+  "val_crops_per_image": 2,
+  "crop": 1024,
+  "seed": 0,
+  "note": "from GridNet/ckpt/upernet_convnext_t_v2/config.json; validation crops are fixed by the seed, at scale 1, half of them centred on a pixel of a class of data2d.CENTRE_CLASSES (as in training)"
+ }
+}

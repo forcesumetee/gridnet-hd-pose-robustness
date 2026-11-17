@@ -1,0 +1,308 @@
+{
+ "note": "Results on the nine hidden test zones of GridNet-HD behind Table 'test' of the paper. mIoU and OA are the values listed by the public leaderboard (https://huggingface.co/spaces/heig-vd-geo/GridNet-HD-Leaderboard, columns 'mIoU' and 'Accuracy') on the day given in 'leaderboard_accessed'; the dataset paper (arXiv:2601.13052, Table 3) prints 69.10 and 66.90 where the leaderboard lists 69.11 and 66.91. Parameter counts of the published baselines are those of Table 3 of the dataset paper; 'per_class' is Table 10 of that paper (best model per baseline). Entries under 'unpublished' have no publication we could find: only their name, submitter prefix, date and scores are known, not their method; the table prints them under the full name of the leaderboard (user name + result name) so that nobody takes them for ours (a reader of draft v18 did). Our two rows are the two submissions of 2026-11-14 (one per model, the only ones made), read from the leaderboard table on the same day (screenshots of the table from 13:27 and 13:31 +07; 'entry' is the 'Eval Name' of the table = user name + result name). Rows with 'per_class' pass the check that the mean of the eleven values is the row's mIoU (tests/test_tables.py).",
+ "leaderboard_accessed": "2026-11-14",
+ "class_order": [
+  "pylon",
+  "conductor",
+  "structural",
+  "insulator",
+  "high_veg",
+  "low_veg",
+  "herb",
+  "rock_soil",
+  "road",
+  "water",
+  "building"
+ ],
+ "rows": [
+  {
+   "group": "Images only"
+  },
+  {
+   "method": "ImageVote",
+   "cite": "gridnethd",
+   "params": 60000000,
+   "miou": 69.11,
+   "oa": 86.89,
+   "entry": "HEIG-VD_ImageVote_GridNet-HD_Baseline",
+   "submitted": "2025-05-22",
+   "per_class": [
+    85.09,
+    64.82,
+    45.06,
+    71.07,
+    83.86,
+    63.43,
+    84.45,
+    38.62,
+    80.69,
+    74.87,
+    68.09
+   ]
+  },
+  {
+   "group": "LiDAR only"
+  },
+  {
+   "method": "SPT",
+   "cite": "gridnethd",
+   "params": 210000,
+   "miou": 66.91,
+   "oa": 86.82,
+   "entry": "HEIG-VD_SPT_GridNet-HD_Baseline",
+   "submitted": "2025-05-22",
+   "per_class": [
+    92.75,
+    91.05,
+    70.51,
+    80.6,
+    85.15,
+    55.91,
+    84.64,
+    40.63,
+    73.57,
+    3.69,
+    57.38
+   ]
+  },
+  {
+   "method": "PTv3, test-time augmentation",
+   "cite": "gridnethd",
+   "params": 46200000,
+   "miou": 69.32,
+   "oa": 86.05,
+   "entry": "HEIG-VD_PTv3_GridNet-HD_Baseline",
+   "submitted": "2025-10-28",
+   "per_class_unverified": [
+    97.12,
+    85.88,
+    53.22,
+    90.63,
+    88.3,
+    33.93,
+    91.72,
+    51.88,
+    76.63,
+    29.68,
+    60.49
+   ],
+   "per_class_note": "as extracted from Table 10 of the dataset paper on 2026-11-14; the mean of these eleven values is 69.04, not the 69.32 the paper and the leaderboard give, so at least one value was read wrongly (or the table is inconsistent): check against the PDF before using them"
+  },
+  {
+   "method": "LitePT-S, our reference",
+   "ours": "lidar",
+   "params": 12700000,
+   "miou": 66.22,
+   "oa": 80.33,
+   "entry": "Sumetee_LitePT-S_LiDAR-only",
+   "submitted": "2026-11-14",
+   "submitted_utc": "2026-11-14T06:25:03Z"
+  },
+  {
+   "group": "LiDAR and images"
+  },
+  {
+   "method": "Late-fusion MLP",
+   "cite": "gridnethd",
+   "params": 60300000,
+   "miou": 74.22,
+   "oa": 84.34,
+   "entry": "HEIG-VD_MLP_LateFusion_GridNet-HD_Baseline",
+   "submitted": "2025-05-22",
+   "per_class": [
+    94.82,
+    94.4,
+    82.52,
+    86.98,
+    83.08,
+    47.64,
+    80.75,
+    42.89,
+    80.26,
+    61.69,
+    61.4
+   ]
+  },
+  {
+   "method": "DITR, test-time augmentation",
+   "cite": "gridnethd",
+   "params": 46700000,
+   "miou": 74.87,
+   "oa": 87.03,
+   "entry": "HEIG-VD_DITR_GridNet-HD_Baseline",
+   "submitted": "2025-10-28",
+   "per_class": [
+    96.81,
+    89.07,
+    57.8,
+    93.2,
+    88.81,
+    41.99,
+    90.05,
+    44.26,
+    79.49,
+    71.86,
+    70.26
+   ]
+  },
+  {
+   "method": "Late fusion with pose-noise augmentation, ours",
+   "ours": "fused",
+   "params": 49706956,
+   "miou": 79.25,
+   "oa": 87.38,
+   "entry": "Sumetee_LitePT-S_UPerNet_LateFusion_PoseAug",
+   "submitted": "2026-11-14",
+   "submitted_utc": "2026-11-14T06:30:15Z"
+  },
+  {
+   "group": "Entries of other participants, without a publication"
+  },
+  {
+   "method": "\\texttt{GuiSpa\\_Lite-S-Concat}",
+   "unpublished": true,
+   "params": null,
+   "miou": 78.25,
+   "oa": 87.4,
+   "entry": "GuiSpa_Lite-S-Concat",
+   "submitted": "2026-06-25"
+  },
+  {
+   "method": "\\texttt{shima-salehi\\_finaltest}",
+   "unpublished": true,
+   "params": null,
+   "miou": 76.94,
+   "oa": 88.08,
+   "entry": "shima-salehi_finaltest",
+   "submitted": "2026-11-05"
+  }
+ ],
+ "leaderboard_snapshot": [
+  [
+   "Sumetee_LitePT-S_UPerNet_LateFusion_PoseAug",
+   "2026-11-14",
+   79.25,
+   87.38
+  ],
+  [
+   "GuiSpa_Lite-S-Concat",
+   "2026-06-25",
+   78.25,
+   87.4
+  ],
+  [
+   "GuiSpa_Lite-S-Pyramid",
+   "2026-06-25",
+   77.68,
+   87.0
+  ],
+  [
+   "shima-salehi_finaltest",
+   "2026-11-05",
+   76.94,
+   88.08
+  ],
+  [
+   "GuiSpa_LitePT-ditr-V2-test",
+   "2026-05-22",
+   76.72,
+   86.75
+  ],
+  [
+   "HEIG-VD_DITR_GridNet-HD_Baseline",
+   "2025-10-28",
+   74.87,
+   87.03
+  ],
+  [
+   "shima-salehi_l1",
+   "2026-10-25",
+   74.28,
+   87.85
+  ],
+  [
+   "HEIG-VD_MLP_LateFusion_GridNet-HD_Baseline",
+   "2025-05-22",
+   74.22,
+   84.34
+  ],
+  [
+   "GuiSpa_Lite-S-test",
+   "2026-05-25",
+   72.88,
+   86.32
+  ],
+  [
+   "shima-salehi_EXPMLP",
+   "2026-10-20",
+   71.28,
+   86.28
+  ],
+  [
+   "shima-salehi_ base",
+   "2026-10-20",
+   69.7,
+   86.25
+  ],
+  [
+   "shima-salehi_ge",
+   "2026-10-20",
+   69.45,
+   86.26
+  ],
+  [
+   "HEIG-VD_PTv3_GridNet-HD_Baseline",
+   "2025-10-28",
+   69.32,
+   86.05
+  ],
+  [
+   "shima-salehi_experiment_b",
+   "2026-10-13",
+   69.15,
+   86.96
+  ],
+  [
+   "HEIG-VD_ImageVote_GridNet-HD_Baseline",
+   "2025-05-22",
+   69.11,
+   86.89
+  ],
+  [
+   "shima-salehi_experiment_A",
+   "2026-10-13",
+   68.85,
+   86.96
+  ],
+  [
+   "HEIG-VD_SPT_GridNet-HD_Baseline",
+   "2025-05-22",
+   66.91,
+   86.82
+  ],
+  [
+   "shima-salehi_l2",
+   "2026-10-25",
+   66.85,
+   86.86
+  ],
+  [
+   "Sumetee_LitePT-S_LiDAR-only",
+   "2026-11-14",
+   66.22,
+   80.33
+  ],
+  [
+   "shima-salehi_experiment d",
+   "2026-10-14",
+   61.96,
+   85.49
+  ],
+  [
+   "shima-salehi_experiment c",
+   "2026-10-14",
+   59.14,
+   85.42
+  ]
+ ]
+}

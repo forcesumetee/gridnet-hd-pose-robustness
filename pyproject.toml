@@ -1,0 +1,18 @@
+[project]
+name = "gridnet-fusion"
+version = "0.1.0"
+description = "Misalignment-robust LiDAR-image fusion for power-line 3D semantic segmentation (GridNet-HD)"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy", "scipy", "laspy[lazrs]", "pillow", "matplotlib", "huggingface_hub", "tqdm",
+]
+
+[project.optional-dependencies]
+viz = ["open3d"]
+dev = ["pytest"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.setuptools]
+packages = ["gridnet", "gridnet.preprocess", "gridnet.train"]

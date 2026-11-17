@@ -1,0 +1,125 @@
+{
+ "note": "Measured wall times and parameter counts behind Table 'cost' of the paper. Every entry names its source (results/experiments.csv row or notes/journal.md entry). GPU: one NVIDIA A100 (40 GB unless stated) on Google Colab.",
+ "rows": [
+  {
+   "group": "Backbones (trained once, then frozen)"
+  },
+  {
+   "component": "LiDAR branch: LitePT-S, 20,000 iterations",
+   "params": 12700000,
+   "time": "7.0 h",
+   "source": "experiments.csv litept_s_lidar_v2: 6.95 h on A100-SXM4-40GB; parameter count printed by scripts/train_litept.py (12.7 M)"
+  },
+  {
+   "component": "Image branch: UPerNet / ConvNeXt-T, 12,000 iterations",
+   "params": 37000000,
+   "time": "1.4 h",
+   "source": "experiments.csv upernet_convnext_t_v2: 1.39 h on A100-SXM4-80GB; parameter count printed by scripts/train_upernet.py (37.0 M)"
+  },
+  {
+   "group": "Preparation (once per zone)"
+  },
+  {
+   "component": "Image-branch outputs stored per image",
+   "params": null,
+   "time": "1.4--1.7 s per image",
+   "source": "journal 2026-10-22: 853 images of the six validation zones in 24 min; journal 2026-10-29: 1,908 images of eight training zones in 54.5 min; results/leaderboard_v1_run.json: 2,447 images of the nine test zones in 58.7 min (1.4 s per image, written to the local disk instead of Drive)"
+  },
+  {
+   "component": "Point-pixel association of a zone",
+   "params": null,
+   "time": "0.6--1.3 min",
+   "source": "journal 2026-10-22: association 0.6-1.3 min/zone on an A100"
+  },
+  {
+   "component": "LiDAR features of the subsets of 14 zones, stored",
+   "params": null,
+   "time": "26 min",
+   "source": "experiments.csv bank_lab1: banks 0.43 h, one-off"
+  },
+  {
+   "group": "Fusion heads (the only parts trained per experiment)"
+  },
+  {
+   "component": "Late fusion head",
+   "params": 6956,
+   "time": null,
+   "source": "gridnet.train.fusion.build_head('late')"
+  },
+  {
+   "component": "Feature concatenation head",
+   "params": 33852,
+   "time": null,
+   "source": "build_head('concat')"
+  },
+  {
+   "component": "Window head, $3{\\times}3$ / $5{\\times}5$",
+   "params": [
+    37820,
+    38844
+   ],
+   "time": null,
+   "source": "build_head('window', k=3 / k=5)"
+  },
+  {
+   "component": "Training twelve heads side by side on stored features",
+   "params": null,
+   "time": "54--58 min",
+   "source": "experiments.csv bank_lab1 (0.90 h at 0.55 s/it) and bank_lab3 (57.6 min at 0.57-0.60 s/it): 2 passes x 8 zones x 300 iterations"
+  },
+  {
+   "component": "Training one head with the backbone in the loop",
+   "params": null,
+   "time": "1.7--2.5 h",
+   "source": "experiments.csv late_v1 2.51 h, concat_v1 1.74 h, window3_v1 1.86 h (two validation passes included)"
+  },
+  {
+   "group": "Evaluation"
+  },
+  {
+   "component": "Protocol, fast form: 654 configurations, 18 / 24 models",
+   "params": null,
+   "time": "37 / 60 min",
+   "source": "experiments.csv protocol_lab3 (37.0 min, 3.4 s per configuration, 18 models) and protocol_lab2 (60.3 min, 5.5 s, 24 models)"
+  },
+  {
+   "component": "Protocol, exact form: 654 configurations, 37 models",
+   "params": null,
+   "time": "2.6 h",
+   "source": "experiments.csv protocol_exact_v1: 157.3 min (cell 8 of the lab-4 notebook); zones 25.3 / 25.4 / 29.9 / 26.9 / 17.9 / 31.4 min, 4,033 evaluations each; 14.4 s per configuration"
+  },
+  {
+   "component": "Protocol, exact form, shared errors: 612 configurations, 26 models",
+   "params": null,
+   "time": "2.3 h",
+   "source": "experiments.csv shared_v1: 139.5 min (cell 6 of colab_shared_error); zones 22.4 / 22.4 / 26.5 / 24.2 / 16.0 / 27.8 min, 2,652 evaluations each (102 configurations x 26 models); 13.7 s per configuration"
+  },
+  {
+   "component": "Full-zone inference, six validation zones",
+   "params": null,
+   "time": "18 min",
+   "source": "experiments.csv bank_lab3: full-zone evaluation of late_a 18.0 min; 295,145,735 labelled voxels in results/fusion_late_a_eval.json"
+  },
+  {
+   "component": "Predictions of the nine test zones: 2,447 images, 524 million voxels",
+   "params": null,
+   "time": "1.8 h",
+   "source": "results/leaderboard_v1_run.json: nine zones 106.6 min (2D outputs 58.7 min, association and full-zone inference 36.8 min, cache copies, downloads and files 11.1 min) + the check on validation zone t1z8 4.0 min = 110.6 min on an A100-SXM4-40GB"
+  },
+  {
+   "component": "Label-transfer experiment, 852 images (8 CPU cores, no GPU)",
+   "params": null,
+   "time": "1.7 h",
+   "source": "experiments.csv label_transfer_v1: 104.6 min for the six validation zones on a Colab CPU High-RAM runtime (8 cores, 51 GB), 6.0-6.9 s per image"
+  },
+  {
+   "group": "Whole study"
+  },
+  {
+   "component": "All GPU runs, development and discarded runs included",
+   "params": null,
+   "time": "$\\approx$\\,37 h",
+   "source": "sum of the A100 wall hours of results/experiments.csv up to 2026-11-14: LitePT-S 0.99 (diverged) + 6.95, UPerNet 2.41 + 1.39, ImageVote v1 0.87, crop-trained heads 2.92 + 1.74 + 1.86, heads lab 1 2.3, fast_v1 0.53, heads lab 2 with its protocol 2.86, heads lab 3 2.5, final session (lab 4, exact protocol, views) 4.6, crops for the qualitative figure 0.35 = 32.3 h, + the leaderboard session 1.9 (experiments.csv leaderboard_v1) = 34.2 h, + the shared-error session 2.5 (experiments.csv shared_v1) = 36.7 h; two short L4 runs (1.1 h) not counted"
+  }
+ ]
+}

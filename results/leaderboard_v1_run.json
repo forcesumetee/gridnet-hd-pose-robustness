@@ -1,0 +1,475 @@
+{
+ "run": "leaderboard_v1",
+ "date": "2026-11-14",
+ "source": "printed output of the executed notebook colab_leaderboard (cells 1, 6, 7; received 13:07), parsed; the step times with all digits are in GridNet/leaderboard/v1/timing_1794636051.json on Drive",
+ "session": {
+  "gpu": "NVIDIA A100-SXM4-40GB, 40960 MiB",
+  "windows_points": 900000,
+  "head": "late_a",
+  "run2d": "upernet_convnext_t_v2",
+  "start": "about 11:08 (+07)",
+  "check_file_written": "11:14:21 (+07)",
+  "last_zone_finished": "13:00:51 (+07)",
+  "wall_hours": 1.9,
+  "code_pack": "gridnet_code.zip of update37b (217,029 bytes, on Drive since 2026-11-14 06:00); the notebook is the one of update40 / 41 (its cell 8 checks every zone against the points of its LAS)"
+ },
+ "check_zone": "t1z8 -> results/leaderboard_v1_check_t1z8.json",
+ "check_minutes": 4.0,
+ "failed_zones": "none",
+ "totals": {
+  "zones": 9,
+  "images": 2447,
+  "points": 766947526,
+  "voxels": 523980863,
+  "minutes": 106.6,
+  "export2d_minutes": 58.7,
+  "predict_minutes": 36.8
+ },
+ "zones": {
+  "t1z4": {
+   "images": 115,
+   "voxels": 36117341,
+   "views_per_point": 9.5,
+   "no_view_percent": 4.7,
+   "windows": 217,
+   "fill_in_windows": 2,
+   "predict_minutes": 2.4,
+   "points": 49527865,
+   "file_mb": {
+    "fused": 1.5,
+    "lidar": 1.7
+   },
+   "predicted_percent": {
+    "fused": {
+     "pylon": 0.61,
+     "conductor": 0.24,
+     "structural": 0.17,
+     "insulator": 0.02,
+     "high_veg": 27.44,
+     "low_veg": 2.21,
+     "herb": 60.96,
+     "rock_soil": 2.1,
+     "road": 4.01,
+     "water": 0.01,
+     "building": 2.23
+    },
+    "lidar": {
+     "pylon": 0.6,
+     "conductor": 0.24,
+     "structural": 0.17,
+     "insulator": 0.02,
+     "high_veg": 28.8,
+     "low_veg": 1.25,
+     "herb": 60.63,
+     "rock_soil": 5.25,
+     "road": 1.98,
+     "water": 0.0,
+     "building": 1.06
+    }
+   },
+   "minutes": 6.0,
+   "steps_minutes": {
+    "cache": 0.4,
+    "download": 0.2,
+    "export2d": 2.8,
+    "predict": 2.5,
+    "files": 0.1
+   }
+  },
+  "t1z5a": {
+   "images": 156,
+   "voxels": 51939227,
+   "views_per_point": 11.3,
+   "no_view_percent": 2.4,
+   "windows": 237,
+   "fill_in_windows": 5,
+   "predict_minutes": 3.3,
+   "points": 71040345,
+   "file_mb": {
+    "fused": 2.0,
+    "lidar": 2.4
+   },
+   "predicted_percent": {
+    "fused": {
+     "pylon": 0.49,
+     "conductor": 0.23,
+     "structural": 0.17,
+     "insulator": 0.01,
+     "high_veg": 17.77,
+     "low_veg": 6.46,
+     "herb": 64.11,
+     "rock_soil": 7.08,
+     "road": 1.34,
+     "water": 1.55,
+     "building": 0.79
+    },
+    "lidar": {
+     "pylon": 0.48,
+     "conductor": 0.23,
+     "structural": 0.17,
+     "insulator": 0.01,
+     "high_veg": 20.98,
+     "low_veg": 3.22,
+     "herb": 67.33,
+     "rock_soil": 6.45,
+     "road": 0.71,
+     "water": 0.0,
+     "building": 0.41
+    }
+   },
+   "minutes": 8.2,
+   "steps_minutes": {
+    "cache": 0.5,
+    "download": 0.3,
+    "export2d": 3.8,
+    "predict": 3.5,
+    "files": 0.1
+   }
+  },
+  "t1z7": {
+   "images": 226,
+   "voxels": 97818858,
+   "views_per_point": 6.5,
+   "no_view_percent": 5.6,
+   "windows": 414,
+   "fill_in_windows": 22,
+   "predict_minutes": 6.5,
+   "points": 122763604,
+   "file_mb": {
+    "fused": 5.8,
+    "lidar": 5.9
+   },
+   "predicted_percent": {
+    "fused": {
+     "pylon": 0.46,
+     "conductor": 0.22,
+     "structural": 0.15,
+     "insulator": 0.01,
+     "high_veg": 52.49,
+     "low_veg": 13.14,
+     "herb": 31.99,
+     "rock_soil": 1.27,
+     "road": 0.05,
+     "water": 0.01,
+     "building": 0.22
+    },
+    "lidar": {
+     "pylon": 0.46,
+     "conductor": 0.24,
+     "structural": 0.13,
+     "insulator": 0.01,
+     "high_veg": 58.91,
+     "low_veg": 6.39,
+     "herb": 32.49,
+     "rock_soil": 1.11,
+     "road": 0.04,
+     "water": 0.0,
+     "building": 0.22
+    }
+   },
+   "minutes": 13.9,
+   "steps_minutes": {
+    "cache": 1.0,
+    "download": 0.4,
+    "export2d": 5.5,
+    "predict": 6.7,
+    "files": 0.2
+   }
+  },
+  "t3z1": {
+   "images": 143,
+   "voxels": 39682044,
+   "views_per_point": 15.4,
+   "no_view_percent": 1.3,
+   "predict_minutes": 2.6,
+   "points": 59879633,
+   "file_mb": {
+    "fused": 1.1,
+    "lidar": 1.9
+   },
+   "predicted_percent": {
+    "fused": {
+     "pylon": 0.84,
+     "conductor": 0.6,
+     "structural": 0.11,
+     "insulator": 0.05,
+     "high_veg": 0.0,
+     "low_veg": 10.86,
+     "herb": 69.59,
+     "rock_soil": 16.93,
+     "road": 1.02,
+     "water": 0.0,
+     "building": 0.01
+    },
+    "lidar": {
+     "pylon": 0.84,
+     "conductor": 0.6,
+     "structural": 0.11,
+     "insulator": 0.05,
+     "high_veg": 0.0,
+     "low_veg": 10.27,
+     "herb": 68.37,
+     "rock_soil": 18.78,
+     "road": 0.98,
+     "water": 0.0,
+     "building": 0.0
+    }
+   },
+   "minutes": 7.2,
+   "steps_minutes": {
+    "cache": 0.5,
+    "download": 0.3,
+    "export2d": 3.5,
+    "predict": 2.8,
+    "files": 0.1
+   }
+  },
+  "t3z2": {
+   "images": 158,
+   "voxels": 39038045,
+   "views_per_point": 14.3,
+   "no_view_percent": 0.9,
+   "predict_minutes": 2.5,
+   "points": 67365114,
+   "file_mb": {
+    "fused": 1.2,
+    "lidar": 2.0
+   },
+   "predicted_percent": {
+    "fused": {
+     "pylon": 0.86,
+     "conductor": 0.61,
+     "structural": 0.11,
+     "insulator": 0.06,
+     "high_veg": 7.91,
+     "low_veg": 0.94,
+     "herb": 54.9,
+     "rock_soil": 31.78,
+     "road": 2.73,
+     "water": 0.0,
+     "building": 0.12
+    },
+    "lidar": {
+     "pylon": 0.86,
+     "conductor": 0.61,
+     "structural": 0.11,
+     "insulator": 0.06,
+     "high_veg": 7.92,
+     "low_veg": 0.94,
+     "herb": 73.21,
+     "rock_soil": 13.98,
+     "road": 2.19,
+     "water": 0.0,
+     "building": 0.14
+    }
+   },
+   "minutes": 7.3,
+   "steps_minutes": {
+    "cache": 0.4,
+    "download": 0.3,
+    "export2d": 3.8,
+    "predict": 2.7,
+    "files": 0.1
+   }
+  },
+  "t3z5": {
+   "images": 183,
+   "voxels": 65098205,
+   "views_per_point": 10.5,
+   "no_view_percent": 4.7,
+   "windows": 283,
+   "fill_in_windows": 3,
+   "predict_minutes": 4.2,
+   "points": 89594873,
+   "file_mb": {
+    "fused": 3.1,
+    "lidar": 3.6
+   },
+   "predicted_percent": {
+    "fused": {
+     "pylon": 0.53,
+     "conductor": 0.49,
+     "structural": 0.09,
+     "insulator": 0.04,
+     "high_veg": 16.7,
+     "low_veg": 23.55,
+     "herb": 32.08,
+     "rock_soil": 24.43,
+     "road": 2.06,
+     "water": 0.0,
+     "building": 0.02
+    },
+    "lidar": {
+     "pylon": 0.53,
+     "conductor": 0.49,
+     "structural": 0.09,
+     "insulator": 0.04,
+     "high_veg": 17.15,
+     "low_veg": 23.29,
+     "herb": 43.35,
+     "rock_soil": 13.49,
+     "road": 1.54,
+     "water": 0.0,
+     "building": 0.03
+    }
+   },
+   "minutes": 10.0,
+   "steps_minutes": {
+    "cache": 0.7,
+    "download": 0.3,
+    "export2d": 4.4,
+    "predict": 4.4,
+    "files": 0.2
+   }
+  },
+  "t5a2": {
+   "images": 219,
+   "voxels": 73157369,
+   "views_per_point": 11.4,
+   "no_view_percent": 10.7,
+   "predict_minutes": 5.1,
+   "points": 95358184,
+   "file_mb": {
+    "fused": 1.9,
+    "lidar": 1.9
+   },
+   "predicted_percent": {
+    "fused": {
+     "pylon": 0.72,
+     "conductor": 0.44,
+     "structural": 0.08,
+     "insulator": 0.04,
+     "high_veg": 8.76,
+     "low_veg": 0.57,
+     "herb": 87.44,
+     "rock_soil": 1.84,
+     "road": 0.0,
+     "water": 0.0,
+     "building": 0.1
+    },
+    "lidar": {
+     "pylon": 0.72,
+     "conductor": 0.44,
+     "structural": 0.08,
+     "insulator": 0.04,
+     "high_veg": 8.98,
+     "low_veg": 0.57,
+     "herb": 87.76,
+     "rock_soil": 1.25,
+     "road": 0.04,
+     "water": 0.0,
+     "building": 0.12
+    }
+   },
+   "minutes": 11.9,
+   "steps_minutes": {
+    "cache": 0.7,
+    "download": 0.4,
+    "export2d": 5.3,
+    "predict": 5.3,
+    "files": 0.1
+   }
+  },
+  "t6z1": {
+   "images": 640,
+   "voxels": 61697097,
+   "views_per_point": 42.4,
+   "no_view_percent": 0.9,
+   "windows": 352,
+   "fill_in_windows": 1,
+   "predict_minutes": 4.3,
+   "points": 107067772,
+   "file_mb": {
+    "fused": 1.4,
+    "lidar": 3.3
+   },
+   "predicted_percent": {
+    "fused": {
+     "pylon": 0.18,
+     "conductor": 0.5,
+     "structural": 0.09,
+     "insulator": 0.02,
+     "high_veg": 5.66,
+     "low_veg": 0.07,
+     "herb": 84.34,
+     "rock_soil": 5.85,
+     "road": 2.2,
+     "water": 0.0,
+     "building": 1.08
+    },
+    "lidar": {
+     "pylon": 0.18,
+     "conductor": 0.5,
+     "structural": 0.09,
+     "insulator": 0.02,
+     "high_veg": 5.54,
+     "low_veg": 0.23,
+     "herb": 72.53,
+     "rock_soil": 18.95,
+     "road": 0.98,
+     "water": 0.0,
+     "building": 0.99
+    }
+   },
+   "minutes": 21.6,
+   "steps_minutes": {
+    "cache": 0.6,
+    "download": 1.0,
+    "export2d": 15.2,
+    "predict": 4.5,
+    "files": 0.2
+   }
+  },
+  "t6z5": {
+   "images": 607,
+   "voxels": 59432677,
+   "views_per_point": 42.2,
+   "no_view_percent": 2.2,
+   "windows": 363,
+   "fill_in_windows": 7,
+   "predict_minutes": 4.2,
+   "points": 104350136,
+   "file_mb": {
+    "fused": 0.6,
+    "lidar": 0.9
+   },
+   "predicted_percent": {
+    "fused": {
+     "pylon": 0.24,
+     "conductor": 0.53,
+     "structural": 0.09,
+     "insulator": 0.02,
+     "high_veg": 7.8,
+     "low_veg": 0.02,
+     "herb": 86.52,
+     "rock_soil": 3.44,
+     "road": 1.08,
+     "water": 0.0,
+     "building": 0.26
+    },
+    "lidar": {
+     "pylon": 0.24,
+     "conductor": 0.53,
+     "structural": 0.09,
+     "insulator": 0.02,
+     "high_veg": 7.77,
+     "low_veg": 0.07,
+     "herb": 86.51,
+     "rock_soil": 3.01,
+     "road": 1.53,
+     "water": 0.0,
+     "building": 0.22
+    }
+   },
+   "minutes": 20.5,
+   "steps_minutes": {
+    "cache": 0.6,
+    "download": 0.9,
+    "export2d": 14.4,
+    "predict": 4.4,
+    "files": 0.1
+   }
+  }
+ },
+ "scores": "the two submissions (lidar/ first, then fused/) had not been made when this file was written; scores -> results/test_set.json"
+}

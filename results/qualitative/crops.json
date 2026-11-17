@@ -1,0 +1,3329 @@
+{
+ "crops": [
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "centre": [
+    74.36958112433871,
+    409.2641289949833
+   ],
+   "radius": 35.0,
+   "points_kept": 236091,
+   "points_subset": 260408,
+   "class_points": {
+    "Pylon": 62487.0,
+    "Conductor cable": 12073.0,
+    "Structural cable": 10801.0,
+    "Insulator": 1019.0,
+    "Low vegetation": 1636103.8650493622,
+    "Herbaceous vegetation": 1526251.242904663,
+    "Rock, gravel, soil": 115969.51128196716,
+    "Building": 14465.0
+   }
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "centre": [
+    54.44032645106998,
+    103.9893801040098
+   ],
+   "radius": 35.0,
+   "points_kept": 286834,
+   "points_subset": 300619,
+   "class_points": {
+    "Pylon": 47874.0,
+    "Conductor cable": 14214.0,
+    "Structural cable": 9984.0,
+    "Insulator": 1135.0,
+    "High vegetation": 1927016.5274505615,
+    "Low vegetation": 3333.3544216156006,
+    "Herbaceous vegetation": 1594584.0480232239,
+    "Rock, gravel, soil": 262933.7847747803,
+    "Water": 45735.64566278458
+   }
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "centre": [
+    63.73212435280449,
+    129.0275904970004
+   ],
+   "radius": 35.0,
+   "points_kept": 296813,
+   "points_subset": 307430,
+   "class_points": {
+    "Pylon": 46203.0,
+    "Conductor cable": 11921.0,
+    "Structural cable": 8022.0,
+    "Insulator": 2938.0,
+    "High vegetation": 2290919.2713775635,
+    "Low vegetation": 876557.2919769287,
+    "Herbaceous vegetation": 1386552.048992157,
+    "Rock, gravel, soil": 46491.75687408447
+   }
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "centre": [
+    147.08591630262575,
+    491.02418641555903
+   ],
+   "radius": 35.0,
+   "points_kept": 216448,
+   "points_subset": 228644,
+   "class_points": {
+    "Pylon": 47609.0,
+    "Conductor cable": 11512.0,
+    "Structural cable": 7611.0,
+    "Insulator": 1112.0,
+    "High vegetation": 2910579.3740081787,
+    "Low vegetation": 103249.27674865723,
+    "Herbaceous vegetation": 1099741.824268341,
+    "Rock, gravel, soil": 67725.79689407349
+   }
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "centre": [
+    109.7377058733606,
+    125.69711035193922
+   ],
+   "radius": 35.0,
+   "points_kept": 194173,
+   "points_subset": 219222,
+   "class_points": {
+    "Pylon": 69183.0,
+    "Conductor cable": 29811.0,
+    "Structural cable": 5112.0,
+    "Insulator": 2884.0,
+    "Low vegetation": 15593.397090911865,
+    "Herbaceous vegetation": 1812886.107788086,
+    "Rock, gravel, soil": 231330.79985427856,
+    "Impervious soil (road)": 74661.00308084488
+   }
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "centre": [
+    518.5728392507883,
+    662.4747290692509
+   ],
+   "radius": 35.0,
+   "points_kept": 300000,
+   "points_subset": 521988,
+   "class_points": {
+    "Pylon": 105884.0,
+    "Conductor cable": 35396.0,
+    "Structural cable": 5743.0,
+    "Insulator": 6686.0,
+    "High vegetation": 1263516.3521475792,
+    "Low vegetation": 688293.6871833801,
+    "Herbaceous vegetation": 1554137.698059082,
+    "Rock, gravel, soil": 54021.63405227661,
+    "Impervious soil (road)": 96178.86482858658
+   }
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "centre": [
+    71.14484113842923,
+    127.63728547691665
+   ],
+   "radius": 35.0,
+   "points_kept": 233521,
+   "points_subset": 266387,
+   "class_points": {
+    "Pylon": 92178.0,
+    "Conductor cable": 31482.0,
+    "Structural cable": 5073.0,
+    "Insulator": 6910.0,
+    "High vegetation": 2392732.804321289,
+    "Herbaceous vegetation": 2044346.774116516,
+    "Rock, gravel, soil": 2015.0,
+    "Building": 722.0
+   }
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "centre": [
+    143.14912755949322,
+    778.5061493519752
+   ],
+   "radius": 35.0,
+   "points_kept": 232115,
+   "points_subset": 263326,
+   "class_points": {
+    "Pylon": 78605.0,
+    "Conductor cable": 30711.0,
+    "Structural cable": 4571.0,
+    "Insulator": 2269.0,
+    "High vegetation": 4093509.0612487793,
+    "Low vegetation": 973272.034283638,
+    "Herbaceous vegetation": 123610.00830078125,
+    "Rock, gravel, soil": 32731.0
+   }
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "centre": [
+    237.47107432677365,
+    661.0754311161089
+   ],
+   "radius": 35.0,
+   "points_kept": 250451,
+   "points_subset": 302126,
+   "class_points": {
+    "Pylon": 149187.0,
+    "Conductor cable": 29704.0,
+    "Structural cable": 6096.0,
+    "Insulator": 26064.0,
+    "Herbaceous vegetation": 1676546.0739746094,
+    "Rock, gravel, soil": 191601.29103040695,
+    "Building": 2766.0
+   }
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "centre": [
+    128.78601573592002,
+    184.52055640048286
+   ],
+   "radius": 35.0,
+   "points_kept": 216907,
+   "points_subset": 243642,
+   "class_points": {
+    "Pylon": 125658.0,
+    "Conductor cable": 29782.0,
+    "Structural cable": 6224.0,
+    "Insulator": 6030.0,
+    "Herbaceous vegetation": 1981927.5874023438,
+    "Rock, gravel, soil": 144436.4420042038,
+    "Building": 202.0
+   }
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "centre": [
+    92.24873376167957,
+    141.423552900784
+   ],
+   "radius": 35.0,
+   "points_kept": 189950,
+   "points_subset": 233376,
+   "class_points": {
+    "Pylon": 125653.0,
+    "Conductor cable": 31216.0,
+    "Structural cable": 5840.0,
+    "Insulator": 6162.0,
+    "Low vegetation": 20207.469707012177,
+    "Herbaceous vegetation": 2077946.005935669,
+    "Rock, gravel, soil": 26258.01043868065
+   }
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "centre": [
+    223.66479248692295,
+    671.950316654033
+   ],
+   "radius": 35.0,
+   "points_kept": 236584,
+   "points_subset": 275457,
+   "class_points": {
+    "Pylon": 125206.0,
+    "Conductor cable": 29033.0,
+    "Structural cable": 5978.0,
+    "Insulator": 6487.0,
+    "High vegetation": 13606.575455665588,
+    "Low vegetation": 62232.22575569153,
+    "Herbaceous vegetation": 1879007.8437423706,
+    "Rock, gravel, soil": 39144.83542048931
+   }
+  }
+ ],
+ "rows": [
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.028212549201203974
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.027610557999536933
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.02666126418152348
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "concat_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.028050474646909018
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.02953229914332023
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.029069228988191753
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.10331095160916881
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "concat_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.17581616114841403
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.030423709191942594
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.16542023616577917
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.3051979624913175
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "imagevote",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.3483792544570502
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.030828895577679982
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.03123408196341748
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.03131511924056496
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "late_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.03178976614957163
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.03114146793239181
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.03163926834915487
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.03264644593655941
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "late_nat_b1",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.03302847881454041
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.03327159064598284
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.03327159064598284
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.03327159064598284
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "lidar",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.03327159064598284
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.028640889094697863
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.02882611715674921
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.029115536003704534
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "win5_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.02927761055799949
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.029567029404954814
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.029763834220884466
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.07149803195184068
+  },
+  {
+   "file": "t1z5b_crop0.npz",
+   "zone": "t1z5b",
+   "model": "win5_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.12392915026626539
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.022224650648162037
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.022948625131476552
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.02695097463357332
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "concat_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.03427267884218721
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.033125247585613415
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.03434097832174521
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.06399661234581389
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "concat_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.12102667777671539
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.040706489816547564
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.24218995451254666
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.3850314860600762
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "imagevote",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.42472714357916597
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.016951930826287098
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.018017402707391383
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.02098160012020711
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "late_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.023850178261641597
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.018140341770595758
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.019465351674020193
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.02329012252926632
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "late_nat_b1",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.028754080893903633
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.025202507956889386
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.025202507956889386
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.025202507956889386
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "lidar",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.025202507956889386
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.02181485377081427
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.0227710464846258
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.027511030365948597
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "win5_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.033712623109811934
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.0269373147376617
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.02781154807600361
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.03614408458207552
+  },
+  {
+   "file": "t1z5b_crop1.npz",
+   "zone": "t1z5b",
+   "model": "win5_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.07368147854713347
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.006644085461177673
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.006426958485322265
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.007194140466678212
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "concat_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.007498118232875939
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.008641653639048119
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.008569277980429613
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.15812633894968442
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "concat_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.21721382664582245
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.01343292223959236
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.07215853164263797
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.3461148746453593
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "imagevote",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.3462162005674252
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.006137455850848239
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.006180881246019343
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.006470383880493258
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "late_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.006730936251519881
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.006340107694980057
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.0064993341439406604
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.0076283944183892505
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "late_nat_b1",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.007440217705981134
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.006398008221874862
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.006398008221874862
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.006398008221874862
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "lidar",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.006398008221874862
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.006629610329453972
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.006658560592901375
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.007411267442533731
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "win5_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.007888946789415763
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.008352151004574093
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.008163974292166087
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.07349024376121827
+  },
+  {
+   "file": "t1z8_crop0.npz",
+   "zone": "t1z8",
+   "model": "win5_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.14049562851021946
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.008858557868050232
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.009035434231472239
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.011010553623017505
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "concat_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.014400683921938606
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.013752137256058061
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.014150109073757466
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.12776369317846825
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "concat_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.15145038618006013
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.008239490596073318
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.014857614527445273
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.3236542656682979
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "imagevote",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.35574258593243324
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.005748481811214012
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.005748481811214012
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.006338069689287185
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "late_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.006529685749660952
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.006249631507576181
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.006279110901479812
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.007045575142975102
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "late_nat_b1",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.007207711809445239
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.006809739991745722
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.006809739991745722
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.006809739991745722
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "lidar",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.006809739991745722
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.008431106656447196
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.008519544838158088
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.009462885443075275
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "win5_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.012926714226755509
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.012631920287718867
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.01269087907552624
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.026030304816932914
+  },
+  {
+   "file": "t1z8_crop1.npz",
+   "zone": "t1z8",
+   "model": "win5_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.069379753552267
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.0017571735676231715
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.001803906907187569
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.0024114403215254043
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "concat_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.0021310402841386855
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.002233853631180449
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.0023927469856995787
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.0037012804935040444
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "concat_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.005383680717824135
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.014225628563417136
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.012094588279278451
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.23876063183475094
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "imagevote",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.23185344424712595
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.0018412935788391094
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.0018226002430133947
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.002289933638657815
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "late_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.002177773623703194
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.002261893634919132
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.0021030002804000025
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.0031965604262080838
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "late_nat_b1",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.0027292270305635524
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.002514253668567168
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.002514253668567168
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.002514253668567168
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "lidar",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.002514253668567168
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.001944106925880873
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.0020188802691840646
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.002317973642396498
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "win5_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.002261893634919132
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.002430133657351119
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.0025609870081315655
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.003177867090382258
+  },
+  {
+   "file": "t3z4_crop0.npz",
+   "zone": "t3z4",
+   "model": "win5_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.004402280586970786
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.0036432479555523756
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.003922997352139412
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.004599600543884863
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "concat_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.005315238535154143
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.004137688749520252
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.004664658543091171
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.020792536546331064
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "concat_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.07099779453382693
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.037649064140681365
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.05252132275923982
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.2231944778770274
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "imagevote",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.32590154122400117
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.003883962552615694
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.004085642350155183
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.004345874346980305
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "late_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.004547554144519794
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.004118171349758337
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.004378403346583459
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.004801280341424352
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "late_nat_b1",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.00486633834063066
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.004872844140551336
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.004872844140551336
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.004872844140551336
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "lidar",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.004872844140551336
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.0032984405597590305
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.0035781899563460673
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.003975043751504481
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "win5_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.00435238014690098
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.0036692711552348545
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.004007572751107635
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.006167498324756493
+  },
+  {
+   "file": "t3z4_crop1.npz",
+   "zone": "t3z4",
+   "model": "win5_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.02634198387862785
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.00555870925886337
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.005625059899884266
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.0062222156690724395
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "concat_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.00652447970038994
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.003929432407127509
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.004076878276062845
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.057260603201049864
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "concat_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.06977875747366247
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.06448545077888279
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.10375028567637101
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.31795964406567234
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "imagevote",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.35537403330802175
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.006494990526602962
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.006745648503793
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.007062657122004046
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "late_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.007423899500895725
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.0064433844724755
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.0064507567659223275
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.006819371438260724
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "late_nat_b1",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.007232219871279755
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.008249596366933787
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.008249596366933787
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.008249596366933787
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "lidar",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.008249596366933787
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.004880458261760645
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.005072137891376616
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.005293306694779676
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "win5_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.005956813104988856
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.0035092116806617613
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.003693519016830904
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.030676113032003127
+  },
+  {
+   "file": "t4z1_crop0.npz",
+   "zone": "t4z1",
+   "model": "win5_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.038394904270769636
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.024191604394090738
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.02457040531698751
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.027704122042770063
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "concat_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.03145769482420191
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.05616584593133367
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.05868831571335098
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.08764075897930368
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "concat_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.1279572299321602
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.025904817659010315
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.05675126553944698
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.35383449843314163
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "imagevote",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.35767416233341365
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.016899686628327415
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.017424842453252487
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.019293019732084415
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "late_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.02037776782947076
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.017433451565136537
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.01782086159991736
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.02014532180860218
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "late_nat_b1",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.021255897241640564
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.026404146148283347
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.026404146148283347
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.026404146148283347
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "lidar",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.026404146148283347
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.027781604049726183
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.027971004511174624
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.03124246702710154
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "win5_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.034892730465925115
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.03312786252970146
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.0340490375012914
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.04271841316849756
+  },
+  {
+   "file": "t4z1_crop1.npz",
+   "zone": "t4z1",
+   "model": "win5_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.05664795619683871
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.004183822867458553
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.004264372118587434
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.005354156104448671
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "concat_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.006661896887482199
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.003937436922829107
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.004074844468872407
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.010130252877266654
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "concat_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.0187821900867563
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.019232318254829406
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.03525214284698963
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.2438131067846161
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "imagevote",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.3253526398832509
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.0042691103098303484
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.004539187210674145
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.005254654088348354
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "late_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.0058469279937076735
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.004539187210674145
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.004861384215189668
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.006008026495965435
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "late_nat_b1",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.007543200458656862
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.006083837555851401
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.006083837555851401
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.006083837555851401
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "lidar",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.006083837555851401
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.004198037441187186
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.0042975394572876136
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.005060388247390413
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "win5_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.0067187551823966185
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.004363874134687862
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.004543925401917059
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.008329740204974123
+  },
+  {
+   "file": "t5b1_crop0.npz",
+   "zone": "t5b1",
+   "model": "win5_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.026761304139757636
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.0022063997519291556
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.002152730568774075
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.0023554808162485896
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "concat_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.0031962980190107793
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.0028623564349350428
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.002981621286390679
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.007686619676315232
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "concat_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.015552136629813806
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.014788841580497758
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.06706262597349932
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.3086514723245912
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "imagevote",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.3135711474471359
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.0018366787124166617
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.001872458167853308
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.0020394289598911763
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "late_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.002224289479647479
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.002021539232172853
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.0021288775984829034
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.0024985986379953973
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "late_nat_b1",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.004192159528665362
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.0025880472765871243
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.0025880472765871243
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.0025880472765871243
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "lidar",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.0025880472765871243
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.0023197013608119432
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.002361444058821438
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.002701348885469912
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "win5_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.0036196882416782428
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.002999511014109002
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.0031724450487197187
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.012039786754445614
+  },
+  {
+   "file": "t5b1_crop1.npz",
+   "zone": "t5b1",
+   "model": "win5_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.022791513113170403
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.0030555868088659732
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.003073351848452366
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.003114803607487393
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "concat_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.0036359114353560207
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.0033398274422488106
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.00351747783811307
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.04436522552717759
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "concat_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.03287124491475746
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.03766780560309346
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.05101527201236444
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.3196522789584949
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "imagevote",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.30467042890727236
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.002771346175483025
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.0028957014525881064
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.0029786049706580497
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "late_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.003168098726246682
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.0030319000894173387
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.0031799420859709437
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.004157019263224537
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "late_nat_b1",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.004524163414677429
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.003416809280456734
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.003416809280456734
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.003416809280456734
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "lidar",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.003416809280456734
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.003008213369968815
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.0030851952081766276
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.003067430168590235
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "win5_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.0038313268708066728
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.003369435841559576
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.0036951282339774405
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.06831249888968505
+  },
+  {
+   "file": "t5b5_crop0.npz",
+   "zone": "t5b5",
+   "model": "win5_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.05046455578518516
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.001577646607159977
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.001565649294558047
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "concat_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.001865582109607411
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "concat_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.0023754678951914965
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.0020995297053459927
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.0020275458297341897
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "concat_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.013209041174776837
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "concat_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.02327478644783565
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.05306411363854502
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.07680079662155681
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "imagevote",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.28740762069296477
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "imagevote",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.3809626643631826
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.0014096842307322888
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.0013976869181303586
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "late_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.0014516748248392108
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "late_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.0014696707937421616
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.0016196372012668991
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.0014696707937421616
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "late_nat_b1",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.0025614262405221355
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "late_nat_b1",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.003359247528553655
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.0015476533256550962
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.0015476533256550962
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "lidar",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.0015476533256550962
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "lidar",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.0015476533256550962
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.0015476533256550962
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.001463672137441252
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "win5_a",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.0016556291390728006
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "win5_a",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.002021547173433169
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.0,
+   "wrong": 0.001937565985219325
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.1,
+   "wrong": 0.00183558882810253
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "win5_n",
+   "sweep": "trans",
+   "level": 0.5,
+   "wrong": 0.007696276034168337
+  },
+  {
+   "file": "t5b5_crop1.npz",
+   "zone": "t5b5",
+   "model": "win5_n",
+   "sweep": "rot",
+   "level": 1.0,
+   "wrong": 0.02311282272770898
+  }
+ ]
+}

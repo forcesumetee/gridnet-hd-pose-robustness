@@ -1,0 +1,132 @@
+t1z5b_crop0.npz: zone t1z5b, centre (74, 409) m, radius 35 m, 236,091 points kept of 260,408 subset points, 1.7 MB
+   points per class (weighted): pylon 62,487, conductor cable 12,073, structural cable 10,801, insulator 1,019, low vegetation 1,636,104, herbaceous vegetation 1,526,251, rock, gravel, soil 115,970, building 14,465
+   power-line points wrong [%]  model                trans 0   trans 0.1   trans 0.5       rot 1
+                                concat_a                 2.8         2.8         2.7         2.8
+                                concat_n                 3.0         2.9        10.3        17.6
+                                imagevote                3.0        16.5        30.5        34.8
+                                late_a                   3.1         3.1         3.1         3.2
+                                late_nat_b1              3.1         3.2         3.3         3.3
+                                lidar                    3.3         3.3         3.3         3.3
+                                win5_a                   2.9         2.9         2.9         2.9
+                                win5_n                   3.0         3.0         7.1        12.4
+t1z5b_crop1.npz: zone t1z5b, centre (54, 104) m, radius 35 m, 286,834 points kept of 300,619 subset points, 1.7 MB
+   points per class (weighted): pylon 47,874, conductor cable 14,214, structural cable 9,984, insulator 1,135, high vegetation 1,927,017, low vegetation 3,333, herbaceous vegetation 1,594,584, rock, gravel, soil 262,934, water 45,736
+   power-line points wrong [%]  model                trans 0   trans 0.1   trans 0.5       rot 1
+                                concat_a                 2.2         2.3         2.7         3.4
+                                concat_n                 3.3         3.4         6.4        12.1
+                                imagevote                4.1        24.2        38.5        42.5
+                                late_a                   1.7         1.8         2.1         2.4
+                                late_nat_b1              1.8         1.9         2.3         2.9
+                                lidar                    2.5         2.5         2.5         2.5
+                                win5_a                   2.2         2.3         2.8         3.4
+                                win5_n                   2.7         2.8         3.6         7.4
+t1z8_crop0.npz: zone t1z8, centre (64, 129) m, radius 35 m, 296,813 points kept of 307,430 subset points, 2.5 MB
+   points per class (weighted): pylon 46,203, conductor cable 11,921, structural cable 8,022, insulator 2,938, high vegetation 2,290,919, low vegetation 876,557, herbaceous vegetation 1,386,552, rock, gravel, soil 46,492
+   power-line points wrong [%]  model                trans 0   trans 0.1   trans 0.5       rot 1
+                                concat_a                 0.7         0.6         0.7         0.7
+                                concat_n                 0.9         0.9        15.8        21.7
+                                imagevote                1.3         7.2        34.6        34.6
+                                late_a                   0.6         0.6         0.6         0.7
+                                late_nat_b1              0.6         0.6         0.8         0.7
+                                lidar                    0.6         0.6         0.6         0.6
+                                win5_a                   0.7         0.7         0.7         0.8
+                                win5_n                   0.8         0.8         7.3        14.0
+t1z8_crop1.npz: zone t1z8, centre (147, 491) m, radius 35 m, 216,448 points kept of 228,644 subset points, 1.8 MB
+   points per class (weighted): pylon 47,609, conductor cable 11,512, structural cable 7,611, insulator 1,112, high vegetation 2,910,579, low vegetation 103,249, herbaceous vegetation 1,099,742, rock, gravel, soil 67,726
+   power-line points wrong [%]  model                trans 0   trans 0.1   trans 0.5       rot 1
+                                concat_a                 0.9         0.9         1.1         1.4
+                                concat_n                 1.4         1.4        12.8        15.1
+                                imagevote                0.8         1.5        32.4        35.6
+                                late_a                   0.6         0.6         0.6         0.7
+                                late_nat_b1              0.6         0.6         0.7         0.7
+                                lidar                    0.7         0.7         0.7         0.7
+                                win5_a                   0.8         0.9         0.9         1.3
+                                win5_n                   1.3         1.3         2.6         6.9
+t3z4_crop0.npz: zone t3z4, centre (110, 126) m, radius 35 m, 194,173 points kept of 219,222 subset points, 1.4 MB
+   points per class (weighted): pylon 69,183, conductor cable 29,811, structural cable 5,112, insulator 2,884, low vegetation 15,593, herbaceous vegetation 1,812,886, rock, gravel, soil 231,331, impervious soil (road) 74,661
+   power-line points wrong [%]  model                trans 0   trans 0.1   trans 0.5       rot 1
+                                concat_a                 0.2         0.2         0.2         0.2
+                                concat_n                 0.2         0.2         0.4         0.5
+                                imagevote                1.4         1.2        23.9        23.2
+                                late_a                   0.2         0.2         0.2         0.2
+                                late_nat_b1              0.2         0.2         0.3         0.3
+                                lidar                    0.3         0.3         0.3         0.3
+                                win5_a                   0.2         0.2         0.2         0.2
+                                win5_n                   0.2         0.3         0.3         0.4
+t3z4_crop1.npz: zone t3z4, centre (519, 662) m, radius 35 m, 300,000 points kept of 521,988 subset points, 2.0 MB
+   points per class (weighted): pylon 105,884, conductor cable 35,396, structural cable 5,743, insulator 6,686, high vegetation 1,263,516, low vegetation 688,294, herbaceous vegetation 1,554,138, rock, gravel, soil 54,022, impervious soil (road) 96,179
+   power-line points wrong [%]  model                trans 0   trans 0.1   trans 0.5       rot 1
+                                concat_a                 0.4         0.4         0.5         0.5
+                                concat_n                 0.4         0.5         2.1         7.1
+                                imagevote                3.8         5.3        22.3        32.6
+                                late_a                   0.4         0.4         0.4         0.5
+                                late_nat_b1              0.4         0.4         0.5         0.5
+                                lidar                    0.5         0.5         0.5         0.5
+                                win5_a                   0.3         0.4         0.4         0.4
+                                win5_n                   0.4         0.4         0.6         2.6
+t4z1_crop0.npz: zone t4z1, centre (71, 128) m, radius 35 m, 233,521 points kept of 266,387 subset points, 1.5 MB
+   points per class (weighted): pylon 92,178, conductor cable 31,482, structural cable 5,073, insulator 6,910, high vegetation 2,392,733, herbaceous vegetation 2,044,347, rock, gravel, soil 2,015, building 722
+   power-line points wrong [%]  model                trans 0   trans 0.1   trans 0.5       rot 1
+                                concat_a                 0.6         0.6         0.6         0.7
+                                concat_n                 0.4         0.4         5.7         7.0
+                                imagevote                6.4        10.4        31.8        35.5
+                                late_a                   0.6         0.7         0.7         0.7
+                                late_nat_b1              0.6         0.6         0.7         0.7
+                                lidar                    0.8         0.8         0.8         0.8
+                                win5_a                   0.5         0.5         0.5         0.6
+                                win5_n                   0.4         0.4         3.1         3.8
+t4z1_crop1.npz: zone t4z1, centre (143, 779) m, radius 35 m, 232,115 points kept of 263,326 subset points, 1.9 MB
+   points per class (weighted): pylon 78,605, conductor cable 30,711, structural cable 4,571, insulator 2,269, high vegetation 4,093,509, low vegetation 973,272, herbaceous vegetation 123,610, rock, gravel, soil 32,731
+   power-line points wrong [%]  model                trans 0   trans 0.1   trans 0.5       rot 1
+                                concat_a                 2.4         2.5         2.8         3.1
+                                concat_n                 5.6         5.9         8.8        12.8
+                                imagevote                2.6         5.7        35.4        35.8
+                                late_a                   1.7         1.7         1.9         2.0
+                                late_nat_b1              1.7         1.8         2.0         2.1
+                                lidar                    2.6         2.6         2.6         2.6
+                                win5_a                   2.8         2.8         3.1         3.5
+                                win5_n                   3.3         3.4         4.3         5.7
+t5b1_crop0.npz: zone t5b1, centre (237, 661) m, radius 35 m, 250,451 points kept of 302,126 subset points, 1.5 MB
+   points per class (weighted): pylon 149,187, conductor cable 29,704, structural cable 6,096, insulator 26,064, herbaceous vegetation 1,676,546, rock, gravel, soil 191,601, building 2,766
+   power-line points wrong [%]  model                trans 0   trans 0.1   trans 0.5       rot 1
+                                concat_a                 0.4         0.4         0.5         0.7
+                                concat_n                 0.4         0.4         1.0         1.9
+                                imagevote                1.9         3.5        24.4        32.5
+                                late_a                   0.4         0.5         0.5         0.6
+                                late_nat_b1              0.5         0.5         0.6         0.8
+                                lidar                    0.6         0.6         0.6         0.6
+                                win5_a                   0.4         0.4         0.5         0.7
+                                win5_n                   0.4         0.5         0.8         2.7
+t5b1_crop1.npz: zone t5b1, centre (129, 185) m, radius 35 m, 216,907 points kept of 243,642 subset points, 1.4 MB
+   points per class (weighted): pylon 125,658, conductor cable 29,782, structural cable 6,224, insulator 6,030, herbaceous vegetation 1,981,928, rock, gravel, soil 144,436, building 202
+   power-line points wrong [%]  model                trans 0   trans 0.1   trans 0.5       rot 1
+                                concat_a                 0.2         0.2         0.2         0.3
+                                concat_n                 0.3         0.3         0.8         1.6
+                                imagevote                1.5         6.7        30.9        31.4
+                                late_a                   0.2         0.2         0.2         0.2
+                                late_nat_b1              0.2         0.2         0.2         0.4
+                                lidar                    0.3         0.3         0.3         0.3
+                                win5_a                   0.2         0.2         0.3         0.4
+                                win5_n                   0.3         0.3         1.2         2.3
+t5b5_crop0.npz: zone t5b5, centre (92, 141) m, radius 35 m, 189,950 points kept of 233,376 subset points, 1.2 MB
+   points per class (weighted): pylon 125,653, conductor cable 31,216, structural cable 5,840, insulator 6,162, low vegetation 20,207, herbaceous vegetation 2,077,946, rock, gravel, soil 26,258
+   power-line points wrong [%]  model                trans 0   trans 0.1   trans 0.5       rot 1
+                                concat_a                 0.3         0.3         0.3         0.4
+                                concat_n                 0.3         0.4         4.4         3.3
+                                imagevote                3.8         5.1        32.0        30.5
+                                late_a                   0.3         0.3         0.3         0.3
+                                late_nat_b1              0.3         0.3         0.4         0.5
+                                lidar                    0.3         0.3         0.3         0.3
+                                win5_a                   0.3         0.3         0.3         0.4
+                                win5_n                   0.3         0.4         6.8         5.0
+t5b5_crop1.npz: zone t5b5, centre (224, 672) m, radius 35 m, 236,584 points kept of 275,457 subset points, 1.5 MB
+   points per class (weighted): pylon 125,206, conductor cable 29,033, structural cable 5,978, insulator 6,487, high vegetation 13,607, low vegetation 62,232, herbaceous vegetation 1,879,008, rock, gravel, soil 39,145
+   power-line points wrong [%]  model                trans 0   trans 0.1   trans 0.5       rot 1
+                                concat_a                 0.2         0.2         0.2         0.2
+                                concat_n                 0.2         0.2         1.3         2.3
+                                imagevote                5.3         7.7        28.7        38.1
+                                late_a                   0.1         0.1         0.1         0.1
+                                late_nat_b1              0.2         0.1         0.3         0.3
+                                lidar                    0.2         0.2         0.2         0.2
+                                win5_a                   0.2         0.1         0.2         0.2
+                                win5_n                   0.2         0.2         0.8         2.3

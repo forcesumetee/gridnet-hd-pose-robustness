@@ -1,0 +1,1009 @@
+"""Generate the LaTeX tables of the paper from result files (never type numbers by hand).
+
+  python scripts/make_tables.py            # writes paper/tables/*.tex
+
+Inputs
+  results/val_eval_v2.json          LiDAR-only baseline on the 6 val zones (copy of <ckpt_dir>/eval.json + leaderboard ref)
+  results/imagevote_v2_eval.json    ImageVote (copy of GridNet/fusion/imagevote_<2D run>/eval.json)
+  results/fusion_<run>_eval.json    fusion heads (copies of GridNet/fusion/<run>/eval/eval.json); listed in FUSION_RUNS,
+                                    missing files are simply left out of the table
+  results/protocol_<PROTOCOL_RUN>_summary.json   robustness protocol (copy of GridNet/protocol/<run>/summary.json)
+  results/protocol_<run>_summary.json for the runs in FIX_RUNS   heads with / without pose-noise augmentation and the
+                                    ablations (heads labs); models of several runs are merged by name (same cameras:
+                                    the draws are seeded by sweep and level), missing models are left out
+  results/protocol_<EXACT_RUN>_summary.json   the exact run of all table heads: once this file exists, the fix and
+                                    ablation tables are made from it alone (the fast heads labs stay in the repo)
+  results/protocol_views<V>_summary.json      number of views at test time (copies of GridNet/protocol/views<V>/summary.json);
+                                    the table is written when at least two of them exist
+  results/protocol_<SHARED_RUN>_summary.json  the run with the shared-error sweeps trans_shared / rot_shared (copy of
+                                    GridNet/protocol/shared_v1/summary.json): with the exact run it gives the table
+                                    "independent against shared pose errors"
+  results/bank_<lab>.json           summaries of the heads labs (GridNet/fusion/bank_<tag>.json): clean-pose accuracy of
+                                    every bank-trained head -> the clean table, once the heads of FIX_GROUPS are in them
+  results/protocol_<EXACT_RUN>_zones.json     per-zone values of the exact run (scripts/paper_stats.py --write-zones):
+                                    adds the comparisons with validation zones as pairs to the statistics table
+  results/compute_cost.json         measured parameter counts and wall times (each entry names its source in the logs)
+"""
+import json
+import os
+import re
+import sys
+
+ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+sys.path.insert(0, ROOT)
+from gridnet.stats import paired_summary  # noqa: E402  (pure Python)
+OUT = os.path.join(ROOT, "paper", "tables")
+NAMES = [("pylon", "Pylon"), ("conductor", "Conductor cable"), ("structural", "Structural cable"), ("insulator", "Insulator"),
+         ("high_veg", "High vegetation"), ("low_veg", "Low vegetation"), ("herb", "Herbaceous vegetation"),
+         ("rock_soil", "Rock, gravel, soil"), ("road", "Road"), ("water", "Water"), ("building", "Building")]
+
+
+# Float layout of every table in the two-column template of the paper (IEEE Access: column 242.7 pt, text 505.1 pt,
+# tables in 8 pt): the float environment ("table" = one column, "table*" = across both columns) and the column
+# separation. Natural widths were measured in the class (notes/decisions.md 2026-11-14): lidar_only and displacement fit
+# one column as they are, fix fits it without the outer padding of its tabular (242.1 of 242.7 pt at 2.3 pt); the other
+# seven are wider than a column at any sensible separation.
+# Update 51 (the paper has to stay within 20 pages with room for three co-authors): ablation and test fit one column
+# with shorter row labels and no outer padding (242.0 and 238.1 pt at 3 pt), cost fits it with its stage texts wrapped
+# in a column of COST_STAGE_WIDTH (239.8 pt at 2.5 pt), and stats sets its two halves side by side (488.7 pt at 5 pt).
+LAYOUT = {"lidar_only": ("table", "6pt"), "displacement": ("table", "5pt"),
+          "clean": ("table*", "6pt"), "robustness": ("table*", "6pt"), "fix": ("table", "2.3pt"),
+          "ablation": ("table", "3pt"), "views": ("table*", "5pt"), "stats": ("table*", "5pt"),
+          "cost": ("table", "2.5pt"), "test": ("table", "3pt"), "shared": ("table*", "3.6pt")}
+COST_STAGE_WIDTH = "122pt"     # the stage column of the cost table: its texts wrap, the continuation lines are indented
+TABLE_FONT = "\\footnotesize"
+
+
+def _open(key):
+    """First line of the float of table `key`."""
+    return f"\\begin{{{LAYOUT[key][0]}}}[!t]"
+
+
+def _close(key):
+    return f"\\end{{{LAYOUT[key][0]}}}"
+
+
+def _style(key):
+    """Font size and column separation of table `key` (inside the float, before the tabular)."""
+    return f"{TABLE_FONT}\\setlength{{\\tabcolsep}}{{{LAYOUT[key][1]}}}"
+
+
+def fmt(v):
+    return "--" if v is None else f"{v:.1f}"
+
+
+def lidar_only_table(e):
+    pc = e["per_class"]
+    rows = "\n".join(f"    {label} & {fmt(pc.get(k))} \\\\" for k, label in NAMES)
+    return f"""% generated by scripts/make_tables.py from results/val_eval_v2.json -- do not edit by hand
+{_open('lidar_only')}
+  \\centering
+  \\caption{{LiDAR-only reference model (LitePT-S, 5\\,cm voxels, geometric features) on the six validation zones of GridNet-HD.
+  Per-class IoU (\\%) of the best checkpoint (iteration {e['it']:,}), evaluated on every labelled voxel. Results on
+  the nine hidden test zones, which are disjoint from the validation zones, are in Table~\\ref{{tab:test}}.}}
+  \\label{{tab:lidar_only}}
+  {_style('lidar_only')}
+  \\begin{{tabular}}{{lr}}
+    \\toprule
+    Class & IoU (\\%) \\\\
+    \\midrule
+{rows}
+    \\midrule
+    mIoU & {e['mIoU']:.1f} \\\\
+    OA & {e['OA']:.1f} \\\\
+    \\bottomrule
+  \\end{{tabular}}
+{_close('lidar_only')}
+"""
+
+
+FUSION_RUNS = [("late_v1", "Late fusion"), ("concat_v1", "Feature concat."), ("window3_v1", "Window $3{\\times}3$")]
+
+
+def clean_models_table(lidar, imagevote, fused):
+    """fused: list of (column label, eval dict). Best value of each row in bold (ties as printed)."""
+    cols = [("LiDAR-only", lidar), ("ImageVote", imagevote)] + list(fused)
+
+    def row(label, values):
+        best = max(round(v, 1) for v in values if v is not None)           # bold = the largest value as printed
+        cells = ["--" if v is None else (f"\\textbf{{{v:.1f}}}" if round(v, 1) >= best else f"{v:.1f}") for v in values]
+        return f"    {label} & " + " & ".join(cells) + " \\\\"
+
+    body = "\n".join(row(label, [e["per_class"].get(k) for _, e in cols]) for k, label in NAMES)
+    head = " & ".join(["Class"] + [c for c, _ in cols])
+    runs = ", ".join(f"{c}: iteration {e['it']:,}" for c, e in fused)
+    return f"""% generated by scripts/make_tables.py from results/*.json -- do not edit by hand
+{_open('clean')}
+  \\centering
+  \\caption{{Accuracy with the delivered (clean) camera poses on the six validation zones: per-class IoU (\\%), mIoU and
+  overall accuracy. LiDAR-only is the frozen LitePT-S reference, ImageVote the uniform vote of the cached 2D
+  probabilities over the associated views, and the fusion heads are trained on the two frozen backbones
+  (Section~\\ref{{sec:fusion}}; {runs}). Best value per row in bold.}}
+  \\label{{tab:clean}}
+  {_style('clean')}
+  \\begin{{tabular}}{{l{'r' * len(cols)}}}
+    \\toprule
+    {head} \\\\
+    \\midrule
+{body}
+    \\midrule
+{row('mIoU', [e['mIoU'] for _, e in cols])}
+{row('OA', [e['OA'] for _, e in cols])}
+    \\bottomrule
+  \\end{{tabular}}
+{_close('clean')}
+"""
+
+
+CLEAN_HEADS = [  # (head type of FIX_GROUPS, its block, column label)
+    ("Late fusion", "Delivered", "Late"), ("Feature concat.", "Delivered", "Concat."),
+    ("Window $3{\\times}3$", "Delivered", "Win.\\,$3{\\times}3$"), ("Window $5{\\times}5$", "Delivered", "Win.\\,$5{\\times}5$"),
+    ("Late fusion", "Pose-noise", "Late"),
+]
+
+
+def bank_val(res):
+    """{head: {"mIoU", "OA", "per_class", "per_zone"}} with the delivered poses, from the heads labs in `res`
+    (results/bank_*.json, diagnostics["val"]); a head is taken from the first lab (by name) that has it."""
+    out = {}
+    for name in sorted(os.listdir(res)):
+        if name.startswith("bank_") and name.endswith(".json"):
+            for head, e in (json.load(open(os.path.join(res, name))).get("diagnostics", {}).get("val") or {}).items():
+                out.setdefault(head, e)
+    return out
+
+
+def reference_gap(val, reference):
+    """(largest |difference| in per-class IoU, its class label) between the LiDAR-only column of the clean table and the
+    stand-alone evaluation of the same weights (the LiDAR-only table): two inference passes, see clean_bank_table."""
+    diffs = [(abs(val["lidar"]["per_class"][k] - reference["per_class"][k]), label) for k, label in NAMES]
+    return max(diffs)
+
+
+def clean_bank_table(val, reference=None):
+    """Clean-pose accuracy of the bank-trained heads: per-class IoU, mIoU (mean +- std over the seeds) and OA. One column
+    per head type trained with the delivered poses, and the final model (late fusion with pose-noise augmentation).
+    `reference` = the stand-alone evaluation of the LiDAR-only model (results/val_eval_v2.json, the LiDAR-only table):
+    the caption then says by how much the LiDAR-only column differs from that table. The two are the same weights in
+    two inference passes (the evaluation of the LiDAR network alone, and the pass of the fusion pipeline, whose
+    windows differ); a reader of draft v18 found 70.0 against 69.9 mIoU and no word on it."""
+    cols, n_del, n_aug = [("LiDAR-only", ["lidar"]), ("ImageVote", ["imagevote"])], 0, 0
+    for label, block, short in CLEAN_HEADS:
+        have = [n for n in _group(label, block) if n in val]
+        if have:
+            cols.append((short, have))
+            n_del, n_aug = n_del + (block == "Delivered"), n_aug + (block != "Delivered")
+
+    def mean(names, get):
+        xs = [get(val[n]) for n in names]
+        return None if any(x is None for x in xs) else sum(xs) / len(xs)
+
+    def row(label, values):
+        best = max(round(v, 1) for v in values if v is not None)           # bold = the largest value as printed
+        cells = ["--" if v is None else (f"\\textbf{{{v:.1f}}}" if round(v, 1) >= best else f"{v:.1f}") for v in values]
+        return f"    {label} & " + " & ".join(cells) + " \\\\"
+
+    body = "\n".join(row(label, [mean(names, lambda e: e["per_class"].get(k)) for _, names in cols]) for k, label in NAMES)
+    sds = []
+    for _, names in cols:
+        _, sd = _mean_std([val[n]["mIoU"] for n in names])
+        sds.append("--" if sd is None else f"{sd:.1f}")
+    seeds = sorted({len(names) for _, names in cols[2:]})
+    n_txt = " or ".join(str(n) for n in seeds)
+    top = (" & & & " + f"\\multicolumn{{{n_del}}}{{c}}{{Delivered poses in training}}"
+           + (f" & \\multicolumn{{{n_aug}}}{{c}}{{Pose noise}}" if n_aug else ""))
+    cmid = f"\\cmidrule(lr){{4-{3 + n_del}}}" + (f" \\cmidrule(lr){{{4 + n_del}-{3 + n_del + n_aug}}}" if n_aug else "")
+    ref_txt = ""
+    if reference is not None:
+        gap, label = reference_gap(val, reference)
+        ref_txt = (f" The LiDAR-only column is the model of Table~\\ref{{tab:lidar_only}} in the inference pass of the fusion pipeline; "
+                   f"its values differ from\n  that table by up to {gap:.1f} IoU points ({label.lower()}).")
+    return f"""% generated by scripts/make_tables.py from results/bank_*.json -- do not edit by hand
+{_open('clean')}
+  \\centering
+  \\caption{{Accuracy with the delivered (clean) camera poses on the six validation zones: per-class IoU (\\%), mIoU and
+  overall accuracy. LiDAR-only is the frozen LitePT-S reference and ImageVote the uniform vote of the cached 2D
+  probabilities over the associated views. The fusion heads are trained on the stored outputs of the two frozen
+  backbones (Section~\\ref{{sec:fusion}}) with the delivered poses or with pose-noise augmentation; each column is the
+  mean over {n_txt} training seeds, and the row below the mIoU gives its standard deviation over the seeds. All values
+  are the class-stratified estimates of Section~\\ref{{sec:protocol}}.{ref_txt} Late: late fusion; Concat.: feature concatenation;
+  Win.: window attention. Best value per row in bold.}}
+  \\label{{tab:clean}}
+  {_style('clean')}
+  \\begin{{tabular}}{{l{'r' * len(cols)}}}
+    \\toprule
+    {top} \\\\
+    {cmid}
+    Class & {' & '.join(c for c, _ in cols)} \\\\
+    \\midrule
+{body}
+    \\midrule
+{row('mIoU', [mean(names, lambda e: e['mIoU']) for _, names in cols])}
+    \\quad std over seeds & {' & '.join(sds)} \\\\
+{row('OA', [mean(names, lambda e: e['OA']) for _, names in cols])}
+    \\bottomrule
+  \\end{{tabular}}
+{_close('clean')}
+"""
+
+
+PROTOCOL_RUN = "fast_v1"
+PROTOCOL_MODELS = [("lidar", "LiDAR-only"), ("imagevote", "ImageVote"), ("late_v1", "Late fusion"),
+                   ("concat_v1", "Feature concat."), ("window3_v1", "Window $3{\\times}3$")]
+SWEEP_COLUMN = {"trans": lambda lv: f"$\\sigma_t$\\,=\\,{100 * lv:g}\\,cm", "rot": lambda lv: f"$\\sigma_r$\\,=\\,{lv:g}$^\\circ$",
+                "drift": lambda lv: f"drift {100 * lv:g}\\,cm"}
+
+
+def robustness_table(summary, run, models=PROTOCOL_MODELS):
+    """Mean IoU over all classes and over the electrical classes: clean, at the reference level and at the largest
+    level of every sweep. One row per entry of `models`: (model name, label), or ([names of the seeds], label) for the
+    mean over the seeds of a head type that are in the summary."""
+    meta = summary["meta"]
+    one = {(c["model"], c["sweep"], float(c["level"]), c["class"]): c["iou_mean"] for c in summary["curves"]}
+    rows_of, val, seeds = [], {}, set()
+    for key, label in models:
+        names = [n for n in ([key] if isinstance(key, str) else key) if (n, "trans", 0.0, "mean_all") in one or (n, "rot", 0.0, "mean_all") in one]
+        if not names:
+            continue
+        rows_of.append((label, label))
+        if not isinstance(key, str):
+            seeds.add(len(names))
+        for (m, sw, lv, cls), v in one.items():
+            if m == names[0]:
+                xs = [one.get((n, sw, lv, cls)) for n in names]
+                if None not in xs:
+                    val[(label, sw, lv, cls)] = sum(xs) / len(xs)
+    models = rows_of
+    sweeps = [sw for sw in ("trans", "rot", "drift") if sw in meta["sweeps"]]
+    cols = [(sweeps[0], 0.0, "Clean")]
+    for sw in sweeps:
+        levels = [float(x) for x in meta["sweeps"][sw]]
+        ref = min(levels, key=lambda x: abs(x - meta["reference"].get(sw, levels[-1])))
+        for lv in dict.fromkeys([ref, levels[-1]]):
+            if lv > 0:
+                cols.append((sw, lv, SWEEP_COLUMN[sw](lv)))
+
+    def block(group, title):
+        rows = [f"    \\multicolumn{{{len(cols) + 1}}}{{l}}{{\\emph{{{title}}}}} \\\\"]
+        for key, label in models:
+            if (key, cols[0][0], 0.0, group) in val:
+                rows.append(f"    {label} & " + " & ".join(f"{100 * val[(key, sw, lv, group)]:.1f}" for sw, lv, _ in cols) + " \\\\")
+        return "\n".join(rows)
+
+    mode = {"fast": "fast re-association", "exact": "exact re-association", "fast_retest": "fast re-association with visibility re-test"}[meta["mode"]]
+    drift = ("both directions of the drift" if meta.get("version", 1) >= 2 else f"{meta['draws']} drift evaluations with a random direction each")
+    what = [{"trans": "the i.i.d.\\ translation sweep", "rot": "the i.i.d.\\ rotation sweep", "drift": "the drift"}[sw] for sw in sweeps]
+    what = what[0] if len(what) == 1 else ", ".join(what[:-1]) + " and " + what[-1]      # the shared-error sweeps have their own table
+    heads = ("" if not seeds else f" The fusion heads are trained with the delivered poses; each of their rows is the mean over "
+             f"{' or '.join(str(n) for n in sorted(seeds))} training seeds.")
+    return f"""% generated by scripts/make_tables.py from results/protocol_{run}_summary.json -- do not edit by hand
+{_open('robustness')}
+  \\centering
+  \\caption{{Accuracy under camera-pose error on the six validation zones: mean IoU (\\%) over all classes and over the
+  four electrical classes, with the delivered poses, at the reference level and at the largest level of {what}
+  (mean over {meta['draws']} draws per level; {drift}; {mode}). LiDAR-only does not read the images and is constant by
+  construction.{heads}}}
+  \\label{{tab:robustness}}
+  {_style('robustness')}
+  \\begin{{tabular}}{{l{'r' * len(cols)}}}
+    \\toprule
+    Model & {' & '.join(label for _, _, label in cols)} \\\\
+    \\midrule
+{block('mean_all', 'Mean IoU, all classes')}
+    \\midrule
+{block('mean_electrical', 'Mean IoU, electrical classes')}
+    \\bottomrule
+  \\end{{tabular}}
+{_close('robustness')}
+"""
+
+
+# ----------------------------------------------------------------------------- the fix + ablations (heads labs)
+FIX_RUNS = ["lab2", "lab3"]                    # protocol runs that hold the bank-trained heads (first run wins on a name)
+EXACT_RUN = "exact_v1"                         # exact re-association for all table heads: replaces FIX_RUNS once it exists
+FIX_GROUPS = [                                 # (row label, runs of the seeds) ; None = rule + sub-heading
+    ("Delivered poses in training", None),
+    ("Late fusion", ["late_nat_b1", "late_n_s1", "late_n_s2"]),
+    ("Feature concat.", ["concat_n", "concat_n_s1", "concat_n_s2"]),
+    ("Window $3{\\times}3$", ["win3_n", "win3_n_s1", "win3_n_s2"]),
+    ("Window $5{\\times}5$", ["win5_n", "win5_n_s1", "win5_n_s2"]),
+    ("Pose-noise augmentation in training", None),
+    ("Late fusion", ["late_a", "late_a_s1", "late_a_s2"]),
+    ("Feature concat.", ["concat_a", "concat_a_s1", "concat_a_s2"]),
+    ("Window $3{\\times}3$", ["win3_a", "win3_a_s1", "win3_a_s2"]),
+    ("Window $5{\\times}5$", ["win5_a", "win5_a_s1", "win5_a_s2"]),
+]
+FIX_COLUMNS = [("trans", 0.0, "Clean"), ("trans", 0.25, None), ("trans", 0.5, None), ("rot", 0.5, None), ("rot", 1.0, None)]
+ABLATION_ROWS = [                              # (label, model) ; (heading, None)
+    ("Range of the training noise, feature concat.", None),
+    ("none", "concat_n"), ("$\\le$\\,10\\,cm, 0.2$^\\circ$", "concat_a10"), ("$\\le$\\,25\\,cm, 0.5$^\\circ$", "concat_a25"),
+    ("$\\le$\\,50\\,cm, 1$^\\circ$", "concat_a"), ("$\\le$\\,1\\,m, 2$^\\circ$", "concat_a100"),
+    ("translation only ($\\le$\\,50\\,cm)", "concat_at"), ("rotation only ($\\le$\\,1$^\\circ$)", "concat_ar"),
+    ("Range of the training noise, late fusion", None),
+    ("none", "late_nat_b1"), ("$\\le$\\,10\\,cm, 0.2$^\\circ$", "late_a10"), ("$\\le$\\,25\\,cm, 0.5$^\\circ$", "late_a25"),
+    ("$\\le$\\,50\\,cm, 1$^\\circ$", "late_a"), ("$\\le$\\,1\\,m, 2$^\\circ$", "late_a100"),
+    ("Window size $K$, delivered poses in training", None),
+    ("1 (feature concat.)", "concat_n"), ("3", "win3_n"), ("5", "win5_n"),
+    ("Window size $K$, pose-noise augmentation", None),
+    ("1 (feature concat.)", "concat_a"), ("3", "win3_a"), ("5", "win5_a"),
+    ("Inputs of the concatenation head, LiDAR + image", None),          # one-column table: the labels have to stay short
+    ("features + features", "concat_n"), ("features + probabilities", "concat_ip_n"),
+    ("probabilities + features", "concat_lp_n"),
+    ("probabilities + features, pose noise", "concat_lp_a"),
+]
+
+
+def merged_curves(summaries):
+    """{(model, sweep, level, class): IoU in %} over several protocol runs; a model is taken from the first run that has it."""
+    val, owner = {}, {}
+    for run, summ in summaries:
+        for c in summ["curves"]:
+            if owner.setdefault(c["model"], run) == run and c["iou_mean"] is not None:
+                val[(c["model"], c["sweep"], float(c["level"]), c["class"])] = 100 * c["iou_mean"]
+    return val, owner
+
+
+def _mean_std(values):
+    n = len(values); m = sum(values) / n
+    sd = (sum((v - m) ** 2 for v in values) / (n - 1)) ** 0.5 if n > 1 else None
+    return m, sd
+
+
+def fix_table(summaries):
+    """Head types with and without pose-noise augmentation: mean +- std over the seeds that exist, clean and at the two
+    largest levels of the translation and rotation sweeps, for all classes and for the electrical classes."""
+    val, owner = merged_curves(summaries)
+    meta = summaries[0][1]["meta"]
+    cols = [(sw, lv, label or SWEEP_COLUMN[sw](lv)) for sw, lv, label in FIX_COLUMNS]
+
+    def cell(names, sw, lv, group):
+        m, sd = _mean_std([val[(n, sw, lv, group)] for n in names])
+        return f"{m:.1f}" + ("" if sd is None else f"{{\\scriptsize\\,$\\pm$\\,{sd:.1f}}}")
+
+    def block(group, title):
+        rows = [f"    \\multicolumn{{{len(cols) + 2}}}{{l}}{{\\textbf{{{title}}}}} \\\\"]
+        for key in ("lidar", "imagevote"):
+            if (key, "trans", 0.0, group) in val:
+                rows.append(f"    {dict(PROTOCOL_MODELS)[key]} & -- & " + " & ".join(cell([key], sw, lv, group) for sw, lv, _ in cols) + " \\\\")
+        for label, names in FIX_GROUPS:
+            if names is None:
+                rows.append(f"    \\multicolumn{{{len(cols) + 2}}}{{l}}{{\\emph{{{label}}}}} \\\\")
+                continue
+            have = [n for n in names if n in owner]
+            if have:
+                rows.append(f"    {label} & {len(have)} & " + " & ".join(cell(have, sw, lv, group) for sw, lv, _ in cols) + " \\\\")
+        return "\n".join(rows)
+
+    runs = ", ".join(f"\\texttt{{{r}}}" for r, _ in summaries).replace("_", "\\_")
+    mode = {"fast": "fast re-association", "exact": "exact re-association"}.get(meta["mode"], meta["mode"])
+    # the levels the table leaves out: largest change of any head of the table up to the reference level
+    heads = [n for _, names in FIX_GROUPS if names for n in names if n in owner]
+    small = [(sw, float(lv)) for sw in ("trans", "rot") for lv in meta["sweeps"][sw] if 0 < float(lv) <= meta["reference"][sw]]
+    worst = max(abs(val[(n, sw, 0.0, "mean_all")] - val[(n, sw, lv, "mean_all")]) for n in heads for sw, lv in small)
+    worst = -(-round(worst * 100) // 10) / 10                                   # rounded up to one decimal
+    return f"""% generated by scripts/make_tables.py from results/protocol_<run>_summary.json of {[r for r, _ in summaries]} -- do not edit by hand
+{_open('fix')}
+  \\centering
+  \\caption{{Fusion heads trained with the delivered poses and with pose-noise augmentation, under large pose errors on
+  the six validation zones: mean IoU (\\%), mean $\\pm$ standard deviation over $n$ training seeds (each value is itself
+  a mean over {meta['draws']} draws of the cameras; {mode}; runs {runs}). At
+  $\\sigma_t\\le{100 * meta['reference']['trans']:g}$\\,cm and $\\sigma_r\\le{meta['reference']['rot']:g}^\\circ$ no head of the table
+  differs from its clean value by more than {worst:.1f} mIoU.}}
+  \\label{{tab:fix}}
+  {_style('fix')}
+  \\begin{{tabular}}{{@{{}}lc{'r' * len(cols)}@{{}}}}
+    \\toprule
+    Head & $n$ & {' & '.join(label for _, _, label in cols)} \\\\
+    \\midrule
+{block('mean_all', 'Mean IoU, all classes')}
+    \\midrule
+{block('mean_electrical', 'Mean IoU, electrical classes')}
+    \\bottomrule
+  \\end{{tabular}}
+{_close('fix')}
+"""
+
+
+def ablation_table(summaries):
+    """One seed per row: mean IoU over all classes / over the electrical classes, clean and at the largest levels."""
+    val, owner = merged_curves(summaries)
+    meta = summaries[0][1]["meta"]
+    cols = [("trans", 0.0, "Clean"), ("trans", 0.5, SWEEP_COLUMN["trans"](0.5)), ("rot", 1.0, SWEEP_COLUMN["rot"](1.0))]
+    rows, pending = [], None
+    for label, model in ABLATION_ROWS:
+        if model is None:
+            pending = label
+            continue
+        if model not in owner:
+            continue
+        if pending:
+            rows.append(("    \\midrule\n" if rows else "") + f"    \\multicolumn{{{2 * len(cols) + 1}}}{{@{{}}l}}{{\\emph{{{pending}}}}} \\\\")
+            pending = None
+        rows.append(f"    \\quad {label} & " + " & ".join(f"{val[(model, sw, lv, 'mean_all')]:.1f} & {val[(model, sw, lv, 'mean_electrical')]:.1f}"
+                                                         for sw, lv, _ in cols) + " \\\\")
+    head1 = " & ".join(f"\\multicolumn{{2}}{{c}}{{{label}}}" for _, _, label in cols)
+    head2 = " & ".join("all & elec." for _ in cols)
+    cmid = " ".join(f"\\cmidrule(lr){{{2 + 2 * i}-{3 + 2 * i}}}" for i in range(len(cols)))
+    mode = {"fast": "fast re-association", "exact": "exact re-association"}.get(meta["mode"], meta["mode"])
+    body = "\n".join(rows)
+    return f"""% generated by scripts/make_tables.py from results/protocol_<run>_summary.json of {[r for r, _ in summaries]} -- do not edit by hand
+{_open('ablation')}
+  \\centering
+  \\caption{{Ablations on the six validation zones, one training seed per row: mean IoU (\\%) over all classes and over
+  the four electrical classes with the delivered poses and at the largest translation and rotation errors
+  (mean over {meta['draws']} draws; {mode}). The training noise is drawn per iteration as
+  $\\sigma_t\\sim U(0,\\sigma_t^{{\\max}})$, $\\sigma_r\\sim U(0,\\sigma_r^{{\\max}})$ on half of the iterations; the rows give the two maxima.
+  Last block: what the concatenation head receives from the LiDAR and from the image branch, features or class
+  probabilities, trained with the delivered poses unless pose noise is stated.}}
+  \\label{{tab:ablation}}
+  {_style('ablation')}
+  \\begin{{tabular}}{{@{{}}l{'rr' * len(cols)}@{{}}}}
+    \\toprule
+     & {head1} \\\\
+    {cmid}
+    Variant & {head2} \\\\
+    \\midrule
+{body}
+    \\bottomrule
+  \\end{{tabular}}
+{_close('ablation')}
+"""
+
+
+def fix_summaries(res):
+    """[(run, summary)] behind the fix and ablation tables: the exact run alone once its summary is in results/, the
+    fast-mode heads labs before that (a table never mixes the two forms of the protocol)."""
+    for runs in ([EXACT_RUN], FIX_RUNS):
+        found = [(run, json.load(open(os.path.join(res, f"protocol_{run}_summary.json")))) for run in runs
+                 if os.path.exists(os.path.join(res, f"protocol_{run}_summary.json"))]
+        if found:
+            return found
+    return []
+
+
+# ----------------------------------------------------------------------------- shared against independent pose errors
+SHARED_RUN = "shared_v1"                       # the sweeps trans_shared / rot_shared on the heads of FIX_GROUPS (exact form)
+SHARED_SWEEPS = [("trans", "trans_shared"), ("rot", "rot_shared")]      # i.i.d. sweep, shared-error sweep with the same levels
+SHARED_BLOCKS = [("mean_all", "Mean IoU, all classes"), ("mean_electrical", "Mean IoU, electrical classes")]
+REFERENCE = {"trans": 0.10, "rot": 0.10}       # reference levels of the paper, for a summary that does not carry them
+
+
+def shared_columns(shared, iid):
+    """[(i.i.d. sweep, shared sweep, level)]: the reference level and the largest level of every sweep both runs hold."""
+    cols = []
+    for base, sw in SHARED_SWEEPS:
+        if sw not in shared["meta"]["sweeps"] or base not in iid["meta"]["sweeps"]:
+            continue
+        common = sorted(set(round(float(x), 6) for x in shared["meta"]["sweeps"][sw]) & set(round(float(x), 6) for x in iid["meta"]["sweeps"][base]))
+        common = [lv for lv in common if lv > 0]
+        if not common:
+            continue
+        ref = min(common, key=lambda x: abs(x - iid["meta"].get("reference", REFERENCE).get(base, common[-1])))
+        for lv in dict.fromkeys([ref, common[-1]]):
+            cols.append((base, sw, lv))
+    return cols
+
+
+def shared_values(shared, iid):
+    """({(row label, block of FIX_GROUPS, sweep, level, class): mean IoU in % over the seeds both runs hold}, rows) with
+    rows = [(block, label, [models])]; the sweep names are those of the two runs, so a key says which error model it is.
+    Raises when the two runs do not give the same numbers with the delivered poses: they would not hold the same heads
+    evaluated on the same points, and the columns could not be compared."""
+    a = {(c["model"], c["sweep"], round(float(c["level"]), 6), c["class"]): 100 * c["iou_mean"] for c in shared["curves"] if c["iou_mean"] is not None}
+    b = {(c["model"], c["sweep"], round(float(c["level"]), 6), c["class"]): 100 * c["iou_mean"] for c in iid["curves"] if c["iou_mean"] is not None}
+    have = set(shared["meta"]["models"]) & set(iid["meta"]["models"])
+    rows, block = [("", "LiDAR-only", ["lidar"]), ("", "ImageVote", ["imagevote"])], ""
+    for label, names in FIX_GROUPS:
+        if names is None:
+            block = label
+            continue
+        rows.append((block, label, list(names)))
+    rows = [(blk, label, [n for n in names if n in have]) for blk, label, names in rows if any(n in have for n in names)]
+    val = {}
+    for blk, label, names in rows:
+        for base, sw in SHARED_SWEEPS:
+            for (m, s_, lv, cls), v in list(b.items()):
+                if m == names[0] and s_ == base and all((n, base, lv, cls) in b for n in names):
+                    val[(label, blk, base, lv, cls)] = sum(b[(n, base, lv, cls)] for n in names) / len(names)
+            for (m, s_, lv, cls), v in list(a.items()):
+                if m == names[0] and s_ == sw and all((n, sw, lv, cls) in a for n in names):
+                    val[(label, blk, sw, lv, cls)] = sum(a[(n, sw, lv, cls)] for n in names) / len(names)
+            for n in names:                                    # level 0 is the same evaluation in both runs
+                for cls, _ in SHARED_BLOCKS:
+                    x, y = a.get((n, sw, 0.0, cls)), b.get((n, base, 0.0, cls))
+                    if x is not None and y is not None and abs(x - y) > 0.05:
+                        raise ValueError(f"{n}, {cls}, delivered poses: {x:.2f} in the shared run and {y:.2f} in the i.i.d. run - "
+                                         "not the same heads on the same points")
+    return val, rows
+
+
+def shared_table(shared, iid, runs=None):
+    """Independent against shared pose errors, side by side: LiDAR-only, ImageVote and the head types of FIX_GROUPS (mean
+    over the seeds both runs hold); with the delivered poses, at the reference level and at the largest level of the
+    translation and of the rotation sweep; all classes on the left, electrical classes on the right."""
+    runs = runs or (SHARED_RUN, EXACT_RUN)
+    val, rows = shared_values(shared, iid)
+    cols = shared_columns(shared, iid)
+    ms, mi = shared["meta"], iid["meta"]
+    if ms["mode"] != mi["mode"] or ms["draws"] != mi["draws"]:
+        raise ValueError(f"the two runs differ in mode or draws: {ms['mode']} / {ms['draws']} and {mi['mode']} / {mi['draws']}")
+    first = cols[0][0]
+    n_block = 1 + 2 * len(cols)                                # clean + (independent, shared) per level
+    width = 1 + n_block * len(SHARED_BLOCKS)
+
+    def cells(label, blk, cls):
+        out = [f"{val[(label, blk, first, 0.0, cls)]:.1f}"]
+        for base, sw, lv in cols:
+            out += [f"{val[(label, blk, base, lv, cls)]:.1f}", f"{val[(label, blk, sw, lv, cls)]:.1f}"]
+        return out
+
+    body, block, seeds = [], "", set()
+    for blk, label, names in rows:
+        if blk != block:
+            body.append(f"    \\multicolumn{{{width}}}{{@{{}}l}}{{\\emph{{{blk}}}}} \\\\")
+            block = blk
+        if blk:
+            seeds.add(len(names))
+        body.append(f"    {label} & " + " & ".join(c for cls, _ in SHARED_BLOCKS for c in cells(label, blk, cls)) + " \\\\")
+    head1 = " & ".join(f"\\multicolumn{{{n_block}}}{{c}}{{{title}}}" for _, title in SHARED_BLOCKS)
+    rule1 = " ".join(f"\\cmidrule(lr){{{2 + i * n_block}-{1 + (i + 1) * n_block}}}" for i in range(len(SHARED_BLOCKS)))
+    level = " & ".join(f"\\multicolumn{{2}}{{c}}{{{SWEEP_COLUMN[base](lv)}}}" for base, _, lv in cols)
+    head2 = " & ".join(f" & {level}" for _ in SHARED_BLOCKS)
+    rule2 = " ".join(f"\\cmidrule(lr){{{3 + i * n_block + 2 * j}-{4 + i * n_block + 2 * j}}}" for i in range(len(SHARED_BLOCKS)) for j in range(len(cols)))
+    head3 = " & ".join("Clean & " + " & ".join("ind. & shared" for _ in cols) for _ in SHARED_BLOCKS)
+    # a pair is set tight (independent right-aligned, shared left-aligned), the two blocks apart: with all columns
+    # right-aligned the wide `shared' column puts its value next to the `ind.' value of the following level
+    spec = "@{}l" + "@{\\hspace{14pt}}".join("l" + "rl" * len(cols) for _ in SHARED_BLOCKS) + "@{}"
+    mode = {"fast": "fast re-association", "exact": "exact re-association"}.get(ms["mode"], ms["mode"])
+    heads = ("" if not seeds else f"\n  A row of a head type is the mean over {' or '.join(str(n) for n in sorted(seeds))} training seeds.")
+    names_txt = " and ".join(f"\\texttt{{{r}}}" for r in reversed(runs)).replace("_", "\\_")
+    body = "\n".join(body)
+    return f"""% generated by scripts/make_tables.py from results/protocol_<run>_summary.json of {list(runs)} -- do not edit by hand
+{_open('shared')}
+  \\centering
+  \\caption{{Independent against shared pose errors on the six validation zones: mean IoU (\\%) with the delivered poses, at
+  the reference level and at the largest level of the translation and of the rotation sweep. \\emph{{ind.}}: every image
+  receives its own error; \\emph{{shared}}: all images of a zone receive the same error, drawn once per zone and draw from the
+  same distribution. Mean over {ms['draws']} draws per level; {mode}; runs {names_txt}.{heads}}}
+  \\label{{tab:shared}}
+  {_style('shared')}
+  \\begin{{tabular}}{{{spec}}}
+    \\toprule
+     & {head1} \\\\
+    {rule1}
+     & {head2} \\\\
+    {rule2}
+    Model & {head3} \\\\
+    \\midrule
+{body}
+    \\bottomrule
+  \\end{{tabular}}
+{_close('shared')}
+"""
+
+
+VIEWS = [1, 2, 4, 8]                           # protocol runs views<V>: the V nearest of the stored views at test time
+VIEWS_MODELS = [("imagevote", "ImageVote"), ("late_nat_b1", "Late fusion"), ("late_a", "Late fusion + aug."),
+                ("concat_n", "Feature concat."), ("concat_a", "Feature concat. + aug.")]
+VIEWS_COLUMNS = [("trans", 0.0, "Clean"), ("trans", 0.5, None), ("rot", 1.0, None)]
+
+
+def views_table(by_v):
+    """by_v: {V: summary of the protocol run that reads the V nearest views}. One row per model, the values of V side by
+    side for the delivered poses and for the largest translation and rotation errors; all classes, then electrical."""
+    vs = sorted(by_v)
+    val = {V: {(c["model"], c["sweep"], float(c["level"]), c["class"]): 100 * c["iou_mean"]
+               for c in by_v[V]["curves"] if c["iou_mean"] is not None} for V in vs}
+    meta = by_v[vs[-1]]["meta"]
+    cols = [(sw, lv, label or SWEEP_COLUMN[sw](lv)) for sw, lv, label in VIEWS_COLUMNS]
+    models = [(k, label) for k, label in VIEWS_MODELS if all((k, "trans", 0.0, "mean_all") in val[V] for V in vs)]
+    width = len(cols) * len(vs) + 1
+
+    def block(group, title):
+        rows = [f"    \\multicolumn{{{width}}}{{l}}{{\\emph{{{title}}}}} \\\\"]
+        for k, label in models:
+            rows.append(f"    {label} & " + " & ".join(f"{val[V][(k, sw, lv, group)]:.1f}" for sw, lv, _ in cols for V in vs) + " \\\\")
+        return "\n".join(rows)
+
+    head1 = " & ".join(f"\\multicolumn{{{len(vs)}}}{{c}}{{{label}}}" for _, _, label in cols)
+    head2 = " & ".join(" & ".join(str(V) for V in vs) for _ in cols)
+    cmid = " ".join(f"\\cmidrule(lr){{{2 + len(vs) * i}-{1 + len(vs) * (i + 1)}}}" for i in range(len(cols)))
+    mode = {"fast": "fast re-association", "exact": "exact re-association"}.get(meta["mode"], meta["mode"])
+    stored = max(vs)
+    return f"""% generated by scripts/make_tables.py from results/protocol_views<V>_summary.json, V in {vs} -- do not edit by hand
+{_open('views')}
+  \\centering
+  \\caption{{Number of views at test time on the six validation zones: mean IoU (\\%) when every point reads only its
+  $V$ nearest views, with the delivered poses and at the largest translation and rotation errors (mean over
+  {meta['draws']} draws; {mode}; one training seed per head). All heads were trained with {stored} views per point.}}
+  \\label{{tab:views}}
+  {_style('views')}
+  \\begin{{tabular}}{{l{'r' * (width - 1)}}}
+    \\toprule
+     & {head1} \\\\
+    {cmid}
+    Model \\hfill $V$\\,= & {head2} \\\\
+    \\midrule
+{block('mean_all', 'Mean IoU, all classes')}
+    \\midrule
+{block('mean_electrical', 'Mean IoU, electrical classes')}
+    \\bottomrule
+  \\end{{tabular}}
+{_close('views')}
+"""
+
+
+# ----------------------------------------------------------------------------- paired comparisons (seeds as pairs)
+STAT_METRICS = {  # key -> (row label, sweep, level, class)
+    "el_t": ("Electrical classes, $\\sigma_t$\\,=\\,50\\,cm", "trans", 0.5, "mean_electrical"),
+    "el_r": ("Electrical classes, $\\sigma_r$\\,=\\,1$^\\circ$", "rot", 1.0, "mean_electrical"),
+    "all_t": ("All classes, $\\sigma_t$\\,=\\,50\\,cm", "trans", 0.5, "mean_all"),
+    "all_r": ("All classes, $\\sigma_r$\\,=\\,1$^\\circ$", "rot", 1.0, "mean_all"),
+    "all_0": ("All classes, delivered poses", "trans", 0.0, "mean_all"),
+    "now_0": ("All classes but water, delivered poses", "trans", 0.0, "mean_wo_water"),
+}
+
+
+def _group(label, block):
+    """Names of the head type `label` in the block of FIX_GROUPS that starts with the sub-heading `block`."""
+    inside = False
+    for lab, names in FIX_GROUPS:
+        if names is None:
+            inside = lab.startswith(block)
+        elif inside and lab == label:
+            return names
+    return []
+
+
+def stat_comparisons():
+    """[(title, alternative, [(first, second)], [metric keys])]: the difference is second - first; a pair is two heads
+    with the same seed (same initial weights where the design is the same, same training batches)."""
+    types = [lab for lab, names in FIX_GROUPS if names is not None]
+    types = list(dict.fromkeys(types))
+    aug = [(n, a) for t in types for n, a in zip(_group(t, "Delivered"), _group(t, "Pose-noise"))]
+    win = [(c, w) for block in ("Delivered", "Pose-noise")
+           for c, w in zip(_group("Feature concat.", block), _group("Window $3{\\times}3$", block))]
+    late = list(zip(_group("Feature concat.", "Delivered"), _group("Late fusion", "Delivered")))
+    win5 = list(zip(_group("Feature concat.", "Delivered"), _group("Window $5{\\times}5$", "Delivered")))
+    return [("Pose-noise augmentation minus delivered poses in training (same head type and seed)", "greater", aug,
+             ["el_t", "el_r", "all_t", "all_r", "all_0", "now_0"]),
+            ("Window $3{\\times}3$ minus feature concatenation (same seed and training)", "two-sided", win, ["el_t", "el_r", "all_0"]),
+            ("Window $5{\\times}5$ minus feature concatenation, delivered poses in training (same seed)", "greater", win5, ["el_t", "el_r"]),
+            ("Late fusion minus feature concatenation, delivered poses in training (same seed)", "greater", late, ["el_t", "el_r"])]
+
+
+def metric_value(val, class_names, model, sweep, level, cls):
+    """A value of merged_curves; `mean_wo_water` = mean IoU over all classes except water."""
+    if cls == "mean_wo_water":
+        keys = [(model, sweep, level, c) for c in class_names if c != "water"]
+        return sum(val[k] for k in keys) / len(keys) if keys and all(k in val for k in keys) else None
+    return val.get((model, sweep, level, cls))
+
+
+def stat_rows(summaries):
+    """[(title, alternative, [(metric label, paired_summary)])] for the comparisons whose heads exist."""
+    val, owner = merged_curves(summaries)
+    classes = summaries[0][1]["meta"].get("class_names") or []     # without them the all-but-water row is left out
+    out = []
+    for title, alt, pairs, metrics in stat_comparisons():
+        pairs = [(a, b) for a, b in pairs if a in owner and b in owner]
+        rows = []
+        for key in metrics:
+            label, sw, lv, cls = STAT_METRICS[key]
+            d = [metric_value(val, classes, b, sw, lv, cls) - metric_value(val, classes, a, sw, lv, cls) for a, b in pairs
+                 if metric_value(val, classes, a, sw, lv, cls) is not None and metric_value(val, classes, b, sw, lv, cls) is not None]
+            if d:
+                rows.append((label, paired_summary(d, alt)))
+        if rows:
+            out.append((title, alt, rows))
+    return out
+
+
+def zone_values_dict(doc):
+    """{(model, sweep, level, zone, class): %} from a zones file (scripts/paper_stats.py --write-zones)."""
+    names = doc["metrics"]
+    return {(r[0], r[1], float(r[2]), r[3], names[i]): v for r in doc["rows"] for i, v in enumerate(r[4:]) if v is not None}
+
+
+def zone_stat_rows(zval):
+    """The comparisons of stat_rows with the validation zones as pairs: per zone, the mean of the metric over the second
+    heads of a comparison minus the mean over the first heads. zval: {(model, sweep, level, zone, class): %}.
+    -> [(title, alternative, number of head pairs behind every zone value, [(metric label, paired_summary)])]"""
+    zones = sorted({k[3] for k in zval})
+    have = {k[0] for k in zval}
+    out = []
+    for title, alt, pairs, metrics in stat_comparisons():
+        pairs = [(a, b) for a, b in pairs if a in have and b in have]
+        rows = []
+        for key in metrics if pairs else []:
+            label, sw, lv, cls = STAT_METRICS[key]
+            d = []
+            for z in zones:
+                a = [zval.get((m, sw, lv, z, cls)) for m, _ in pairs]
+                b = [zval.get((m, sw, lv, z, cls)) for _, m in pairs]
+                if None not in a and None not in b:
+                    d.append(sum(b) / len(b) - sum(a) / len(a))
+            if d:
+                rows.append((label, paired_summary(d, alt)))
+        if rows:
+            out.append((title, alt, len(pairs), rows))
+    return out
+
+
+def _p(p):
+    return f"{p:.3f}" if p >= 0.001 else "$<$0.001"
+
+
+def stats_table(summaries, zval=None):
+    """Paired differences with the exact Wilcoxon signed-rank test: training seeds as pairs and, when the per-zone
+    values of the run are given (zval, see zone_stat_rows), validation zones as pairs. With both, the two kinds of pairs
+    stand side by side, one row per quantity (the table is half as tall as with one block below the other)."""
+    meta = summaries[0][1]["meta"]
+    seed_blocks = stat_rows(summaries)
+    zone_blocks = zone_stat_rows(zval) if zval else []
+    mode = {"fast": "fast re-association", "exact": "exact re-association"}.get(meta["mode"], meta["mode"])
+    intro = (f"Paired comparisons on the six validation zones ({mode}; i.i.d.\\ sweeps). A pair is two heads trained with the same seed,\n"
+             "  that is, with the same training batches and, where the design is the same, the same initial weights; $\\Delta$ is the\n"
+             "  difference in mean IoU (points). $p$: exact Wilcoxon signed-rank test; with $n$ pairs that all agree its one-sided\n"
+             "  value is $2^{-n}$, the smallest it can take.")
+
+    def cells(st):
+        return (f"{st['n']} & ${st['mean']:+.1f}$ & ${st['min']:+.1f}$ to ${st['max']:+.1f}$ & {st['positive']}/{st['n']} & {_p(st['p'])}")
+
+    def side(alt):
+        return "one-sided" if alt != "two-sided" else "two-sided"
+
+    lines = []
+    if not zone_blocks:                                        # seeds only: one block of six columns
+        for i, (title, alt, rows) in enumerate(seed_blocks):
+            lines.append(("    \\midrule\n" if i else "") + f"    \\multicolumn{{6}}{{l}}{{\\emph{{{title}; {side(alt)} test}}}} \\\\")
+            lines += [f"    \\quad {label} & {cells(st)} \\\\" for label, st in rows]
+        body = "\n".join(lines)
+        return f"""% generated by scripts/make_tables.py from results/protocol_<run>_summary.json of {[r for r, _ in summaries]} -- do not edit by hand
+{_open('stats')}
+  \\centering
+  \\caption{{{intro}}}
+  \\label{{tab:stats}}
+  {_style('stats')}
+  \\begin{{tabular}}{{lrrcrr}}
+    \\toprule
+    Quantity & $n$ & Mean $\\Delta$ & Range of $\\Delta$ & $\\Delta>0$ & $p$ \\\\
+    \\midrule
+{body}
+    \\bottomrule
+  \\end{{tabular}}
+{_close('stats')}
+"""
+    # seeds | zones: the comparisons of both, in the order of stat_comparisons; a quantity missing on one side prints as --
+    zone_of = {title: (k, dict(rows)) for title, alt, k, rows in zone_blocks}
+    seed_of = {title: dict(rows) for title, alt, rows in seed_blocks}
+    order = [(title, alt) for title, alt, _ in seed_blocks] + [(title, alt) for title, alt, _, _ in zone_blocks if title not in seed_of]
+    empty = " & ".join(["--"] * 5)
+    for i, (title, alt) in enumerate(order):
+        lines.append(("    \\midrule\n" if i else "") + f"    \\multicolumn{{11}}{{@{{}}l}}{{\\emph{{{title}; {side(alt)} test}}}} \\\\")
+        left, (k, right) = seed_of.get(title, {}), zone_of.get(title, (0, {}))
+        for label in list(left) + [x for x in right if x not in left]:
+            lines.append(f"    \\quad {label} & {cells(left[label]) if label in left else empty} & "
+                         f"{cells(right[label]) if label in right else empty} \\\\")
+    body = "\n".join(lines)
+    zone_txt = ("\n  Right: a pair is a validation zone; the quantity is computed per zone and averaged over the head pairs of the\n"
+                "  comparison, as many as there are seed pairs on the left (a zone's mean over the electrical classes runs over those\n"
+                "  that occur in it).")
+    return f"""% generated by scripts/make_tables.py from results/protocol_<run>_summary.json of {[r for r, _ in summaries]} -- do not edit by hand
+{_open('stats')}
+  \\centering
+  \\caption{{{intro} Left: training seeds as pairs.{zone_txt}}}
+  \\label{{tab:stats}}
+  {_style('stats')}
+  \\begin{{tabular}}{{@{{}}lrrcrr@{{\\hspace{{14pt}}}}rrcrr@{{}}}}
+    \\toprule
+     & \\multicolumn{{5}}{{c}}{{Training seeds as pairs}} & \\multicolumn{{5}}{{c}}{{Validation zones as pairs}} \\\\
+    \\cmidrule(lr){{2-6}} \\cmidrule(l){{7-11}}
+    Quantity & $n$ & Mean $\\Delta$ & Range of $\\Delta$ & $\\Delta>0$ & $p$ & $n$ & Mean $\\Delta$ & Range of $\\Delta$ & $\\Delta>0$ & $p$ \\\\
+    \\midrule
+{body}
+    \\bottomrule
+  \\end{{tabular}}
+{_close('stats')}
+"""
+
+
+def displacement_table(summary, run):
+    """How far the projection of an evaluated point moves in the image at every level of the i.i.d. sweeps and of the
+    drift (summary["displacement"] of a protocol run): median and 90th percentile over all points, median over the
+    points of the electrical classes. The shared-error sweeps are not listed: a camera has the error distribution of
+    the i.i.d. sweep there, and the per-draw statistic of a run with one error per zone is another quantity (the mean
+    over 60 single errors of the median displacement each of them causes)."""
+    meta = summary["meta"]
+    title = {"trans": "Translation, $\\sigma_t$", "rot": "Rotation, $\\sigma_r$", "drift": "Drift at the end of the line"}
+    level = {"trans": lambda lv: f"{100 * lv:g}\\,cm", "rot": lambda lv: f"{lv:g}$^\\circ$",
+             "drift": lambda lv: f"{100 * lv:g}\\,cm, {meta.get('drift_deg', {}).get(str(lv), lv):g}$^\\circ$"}
+    rows = []
+    for sw in ("trans", "rot", "drift"):
+        ds = sorted((d for d in summary.get("displacement", []) if d["sweep"] == sw and float(d["level"]) > 0), key=lambda d: d["level"])
+        if not ds:
+            continue
+        rows.append(("    \\midrule\n" if rows else "") + f"    \\multicolumn{{4}}{{l}}{{\\emph{{{title[sw]}}}}} \\\\")
+        for d in ds:
+            rows.append(f"    \\quad {level[sw](float(d['level']))} & {d['shift_px']:.1f} & {d['shift_px_p90']:.1f} & {d['shift_px_electrical']:.1f} \\\\")
+    body = "\n".join(rows)
+    return f"""% generated by scripts/make_tables.py from results/protocol_{run}_summary.json -- do not edit by hand
+{_open('displacement')}
+  \\centering
+  \\caption{{Displacement of the projection of an evaluated point in the image, in pixels of the full-resolution image
+  ($5280{{\\times}}3956$), at every level of the i.i.d.\\ sweeps and of the drift on the six validation zones (in the
+  shared model a camera has the error distribution of the i.i.d.\\ model). One cell of the cached probability maps
+  covers 4 pixels and one cell of the feature maps 8 pixels.}}
+  \\label{{tab:displacement}}
+  {_style('displacement')}
+  \\begin{{tabular}}{{lrrr}}
+    \\toprule
+     & \\multicolumn{{2}}{{c}}{{All points}} & Electrical classes \\\\
+    \\cmidrule(lr){{2-3}} \\cmidrule(lr){{4-4}}
+    Level & median & 90th percentile & median \\\\
+    \\midrule
+{body}
+    \\bottomrule
+  \\end{{tabular}}
+{_close('displacement')}
+"""
+
+
+def _params(p):
+    """6956 -> 7.0\\,k ; 12700000 -> 12.7\\,M ; a list -> values joined by ' / ' ; None -> --"""
+    if p is None:
+        return "--"
+    if isinstance(p, (list, tuple)):
+        return " / ".join(_params(x) for x in p)
+    return f"{p / 1e6:.1f}\\,M" if p >= 1e6 else f"{p / 1e3:.1f}\\,k"
+
+
+def cost_table(cost):
+    """Parameter counts and measured wall times of every stage (results/compute_cost.json). One column of the page: the
+    stage texts are set ragged in a paragraph column and wrap, with the lines after the first indented further."""
+    rows = []
+    for r in cost["rows"]:
+        if "group" in r:
+            rows.append(("    \\midrule\n" if rows else "") + f"    \\multicolumn{{3}}{{@{{}}l}}{{\\emph{{{r['group']}}}}} \\\\")
+        else:
+            rows.append(f"    \\stage {r['component']} & {_params(r['params'])} & {r['time'] or '--'} \\\\")
+    body = "\n".join(rows)
+    return f"""% generated by scripts/make_tables.py from results/compute_cost.json -- do not edit by hand
+{_open('cost')}
+  \\centering
+  \\caption{{Trainable parameters and measured wall time of every stage on one NVIDIA A100 GPU. The two backbones are
+  trained once on the 21 training zones and frozen; every experiment of Sections~\\ref{{sec:robustness}}
+  and~\\ref{{sec:fix}} trains only fusion heads on stored features and re-evaluates them under perturbed poses. The six
+  validation zones hold 295 million labelled voxels.}}
+  \\label{{tab:cost}}
+  {_style('cost')}
+  \\def\\stage{{\\raggedright\\hangindent=1.8em\\hangafter=1\\hspace*{{1em}}}}% a stage text: ragged, later lines indented
+  \\begin{{tabular}}{{@{{}}p{{{COST_STAGE_WIDTH}}}rr@{{}}}}
+    \\toprule
+    Stage & Parameters & Wall time \\\\
+    \\midrule
+{body}
+    \\bottomrule
+  \\end{{tabular}}
+{_close('cost')}
+"""
+
+
+MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
+
+def test_table(data):
+    """Hidden test zones (results/test_set.json): the published baselines, the leaderboard entries without a
+    publication and our two submissions, whose cells stay a todo until the scores are entered in the file."""
+    def num(v):
+        return "\\todo{--}" if v is None else f"{v:.2f}"
+
+    rows = []
+    for r in data["rows"]:
+        if "group" in r:
+            rows.append(("    \\midrule\n" if rows else "") + f"    \\multicolumn{{4}}{{@{{}}l}}{{\\emph{{{r['group']}}}}} \\\\")
+        else:
+            name = r["method"] + (f"~\\cite{{{r['cite']}}}" if r.get("cite") else "")
+            rows.append(f"    \\quad {name} & {_params(r.get('params'))} & {num(r['miou'])} & {num(r['oa'])} \\\\")
+    body = "\n".join(rows)
+    y, m, d = (int(x) for x in data["leaderboard_accessed"].split("-"))
+    head_k = next((r["params"] for r in data["rows"] if r.get("ours") == "fused"), None)
+    lidar = next((r["params"] for r in data["rows"] if r.get("ours") == "lidar"), None)
+    return f"""% generated by scripts/make_tables.py from results/test_set.json -- do not edit by hand
+{_open('test')}
+  \\centering
+  \\caption{{Results on the nine hidden test zones of GridNet-HD: mIoU and overall accuracy (OA) in \\%, computed per
+  raw point by the public leaderboard and read from it on {d} {MONTHS[m - 1]} {y}. The published baselines and their
+  parameter counts are those of~\\cite{{gridnethd}} (DITR without its frozen image encoder). The last group
+  holds the best entry of each of the two other participants under its name on the leaderboard (user name and result
+  name); these entries have no publication, only their names and scores are public. Our fused model has {_params(head_k)} parameters
+  including both frozen backbones (the LiDAR branch alone {_params(lidar)}); only the fusion head is trained on top of them.}}
+  \\label{{tab:test}}
+  {_style('test')}
+  \\begin{{tabular}}{{@{{}}lrrr@{{}}}}
+    \\toprule
+    Model & Params & mIoU & OA \\\\
+    \\midrule
+{body}
+    \\bottomrule
+  \\end{{tabular}}
+{_close('test')}
+"""
+
+
+def main():
+    os.makedirs(OUT, exist_ok=True)
+    res = os.path.join(ROOT, "results")
+    e = json.load(open(os.path.join(res, "val_eval_v2.json")))
+    path = os.path.join(OUT, "lidar_only_val.tex")
+    open(path, "w", encoding="utf-8").write(lidar_only_table(e))
+    print("wrote", path)
+    iv_path = os.path.join(res, "imagevote_v2_eval.json")
+    bank = bank_val(res)
+    delivered = [n for label, block, _ in CLEAN_HEADS if block == "Delivered" for n in _group(label, block)]
+    path = os.path.join(OUT, "clean_models_val.tex")
+    if "lidar" in bank and "imagevote" in bank and all(n in bank for n in delivered):
+        # the bank-trained heads of the benchmark (three seeds per type) once the heads labs hold all of them
+        open(path, "w", encoding="utf-8").write(clean_bank_table(bank, reference=e))
+        print("wrote", path, "from the heads labs (bank-trained heads, mean over seeds)")
+    elif os.path.exists(iv_path):
+        fused = [(label, json.load(open(os.path.join(res, f"fusion_{run}_eval.json"))))
+                 for run, label in FUSION_RUNS if os.path.exists(os.path.join(res, f"fusion_{run}_eval.json"))]
+        open(path, "w", encoding="utf-8").write(clean_models_table(e, json.load(open(iv_path)), fused))
+        print("wrote", path, "with", ["LiDAR-only", "ImageVote"] + [c for c, _ in fused])
+    exact_path = os.path.join(res, f"protocol_{EXACT_RUN}_summary.json")
+    pr_path = os.path.join(res, f"protocol_{PROTOCOL_RUN}_summary.json")
+    if os.path.exists(exact_path):
+        # the benchmark rows of the exact run: the head types trained with the delivered poses, mean over their seeds
+        exact = json.load(open(exact_path))
+        groups = [("lidar", "LiDAR-only"), ("imagevote", "ImageVote")] + [(_group(label, "Delivered"), label) for label, block, _ in CLEAN_HEADS if block == "Delivered"]
+        path = os.path.join(OUT, "robustness_val.tex")
+        open(path, "w", encoding="utf-8").write(robustness_table(exact, EXACT_RUN, groups))
+        print("wrote", path, "from", os.path.basename(exact_path))
+        if exact.get("displacement"):
+            path = os.path.join(OUT, "displacement.tex")
+            open(path, "w", encoding="utf-8").write(displacement_table(exact, EXACT_RUN))
+            print("wrote", path)
+    elif os.path.exists(pr_path):
+        path = os.path.join(OUT, "robustness_val.tex")
+        open(path, "w", encoding="utf-8").write(robustness_table(json.load(open(pr_path)), PROTOCOL_RUN))
+        print("wrote", path, "from", os.path.basename(pr_path))
+    summaries = fix_summaries(res)
+    if summaries:
+        for name, table in (("fix_val.tex", fix_table), ("ablation_val.tex", ablation_table)):
+            path = os.path.join(OUT, name)
+            open(path, "w", encoding="utf-8").write(table(summaries))
+            print("wrote", path, "from runs", [r for r, _ in summaries])
+        zones_path = os.path.join(res, f"protocol_{summaries[0][0]}_zones.json")
+        zval = zone_values_dict(json.load(open(zones_path))) if len(summaries) == 1 and os.path.exists(zones_path) else None
+        path = os.path.join(OUT, "stats_val.tex")
+        open(path, "w", encoding="utf-8").write(stats_table(summaries, zval))
+        print("wrote", path, "from runs", [r for r, _ in summaries], "+ zones as pairs" if zval else "")
+    cost_path = os.path.join(res, "compute_cost.json")
+    if os.path.exists(cost_path):
+        path = os.path.join(OUT, "cost.tex")
+        open(path, "w", encoding="utf-8").write(cost_table(json.load(open(cost_path))))
+        print("wrote", path)
+    test_path = os.path.join(res, "test_set.json")
+    if os.path.exists(test_path):
+        path = os.path.join(OUT, "test_set.tex")
+        open(path, "w", encoding="utf-8").write(test_table(json.load(open(test_path))))
+        print("wrote", path)
+    shared_path = os.path.join(res, f"protocol_{SHARED_RUN}_summary.json")
+    if os.path.exists(shared_path) and os.path.exists(exact_path):
+        path = os.path.join(OUT, "shared_val.tex")
+        open(path, "w", encoding="utf-8").write(shared_table(json.load(open(shared_path)), json.load(open(exact_path))))
+        print("wrote", path, "from runs", [SHARED_RUN, EXACT_RUN])
+    by_v = {}
+    for V in VIEWS:
+        vp = os.path.join(res, f"protocol_views{V}_summary.json")
+        if os.path.exists(vp):
+            by_v[V] = json.load(open(vp))
+    if len(by_v) >= 2:
+        path = os.path.join(OUT, "views_val.tex")
+        open(path, "w", encoding="utf-8").write(views_table(by_v))
+        print("wrote", path, "for V =", sorted(by_v))
+
+
+if __name__ == "__main__":
+    main()

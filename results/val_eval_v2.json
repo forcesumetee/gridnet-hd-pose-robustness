@@ -1,0 +1,11 @@
+{
+ "run": "litept_s_lidar_v2",
+ "ckpt": "best.pth",
+ "it": 16000,
+ "source": "scripts/train_litept.py --eval-only on the 6 val zones (A100-40GB, fp32 eval, 900k-point windows + fill-in); replace with <ckpt_dir>/eval.json from Drive for exact values",
+ "mIoU": 69.98,
+ "OA": 86.70,
+ "per_class": {"pylon": 98.2, "conductor": 99.3, "structural": 97.7, "insulator": 95.8, "high_veg": 88.1,
+               "low_veg": 56.5, "herb": 81.8, "rock_soil": 45.4, "road": 37.9, "water": 0.1, "building": 69.1},
+ "leaderboard_reference": {"model": "leaderboard entry Lite-S-test (GuiSpa, 25 May 2026); no publication, the method is known from its name only", "test_mIoU": 72.88, "test_OA": 86.32}
+}
